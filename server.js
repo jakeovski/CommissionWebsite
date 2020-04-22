@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
 //Main Page
 app.get('/', function(req,res) {
-    res.sendFile(__dirname + '/public/index.html');
+    res.render('pages/index');
 });
+
 app.listen(8080);
