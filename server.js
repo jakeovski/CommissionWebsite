@@ -3,6 +3,7 @@ const url = "mongodb://localhost:27017/exposure";
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const popup = require('popups');
 const app = express();
 
 //Using sessions
@@ -52,8 +53,8 @@ app.get('/register',function(req,res) {
 
 //---------------Post Routes Section----------------------------
 app.post('/register',function(req,res) {
-    if(req.session.loggedin){alert("You are already logged in!");res.redirect('/');return;}
-    if (req.body.password != req.body.password2){alert("The passwords do not match! Please Try Again...");return;}
+    if(req.session.loggedin){popup.alert({content: "You are already logged in!"});res.redirect('/');return;}
+    if (req.body.password != req.body.password2){popup.alert({content: "The passwords do not match"});return;}
 
     //Data to be stored from the form
     var datatostore = {
