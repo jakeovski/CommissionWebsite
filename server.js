@@ -3,7 +3,7 @@ const url = "mongodb://localhost:27017/exposure";
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const popup = require('popups');
+const popupS = require('popups');
 const app = express();
 
 //Using sessions
