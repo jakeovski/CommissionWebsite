@@ -6,6 +6,6 @@ app.use(express.static('public'));
 
 //Main Page
 app.get('/', function(req,res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 app.listen(8080);
