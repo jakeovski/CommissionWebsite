@@ -22,7 +22,7 @@ app.get('/login', function(req,res) {
 
 //Register Route
 app.get('/register',function(req,res) {
-    res.render('pages/register');
+    res.render('pages/reg');
 });
 
 app.listen(8080);
