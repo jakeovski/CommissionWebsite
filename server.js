@@ -28,6 +28,7 @@ MongoClient.connect(url,function(err,database) {
 
 app.use(express.static(__dirname + '/public'));
 
+//---------------Get Routes Section ----------------------------
 //Main Page
 app.get('/', function(req,res) {
     res.render('pages/index');
