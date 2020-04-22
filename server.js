@@ -48,3 +48,25 @@ app.get('/login', function(req,res) {
 app.get('/register',function(req,res) {
     res.render('pages/reg');
 });
+
+
+//---------------Post Routes Section----------------------------
+app.post('/register',function(req,res) {
+    if(req.session.loggedin){alert("You are already logged in!");res.redirect('/');return;}
+    if (req.body.password != req.body.password2){alert("The passwords do not match! Please Try Again...");return;}
+
+    //Data to be stored from the form
+    var datatostore = {
+        "name": req.body.fullname,
+        "login": {"username" : req.body.username, "password" : req.body.password},
+        "email": req.body.email}
+
+    //Adding it to the database
+        db.collection('people').save(datatostore,function(err,result) {
+            if(err) throw err;
+            console.log("Saved to database");
+            //when completed redirect to main page
+            res.redirect('/');
+        });
+
+});
