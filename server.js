@@ -13,6 +13,7 @@ app.get('/', function(req,res) {
 //About Route
 app.get('/about',function(req,res) {
     res.render('pages/about');
+    document.getElementById("aboutButton").style.color = "#f4d74b";
 });
 
 app.listen(8080);
