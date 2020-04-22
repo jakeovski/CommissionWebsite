@@ -10,4 +10,9 @@ app.get('/', function(req,res) {
     res.render('pages/index');
 });
 
+//About Route
+app.get('/about',function(req,res) {
+    res.render('pages/about');
+});
+
 app.listen(8080);
