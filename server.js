@@ -31,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 //---------------Get Routes Section ----------------------------
 //Main Page
 app.get('/', function(req,res) {
-    res.render('pages/index');
+    res.render('pages/main');
 });
 
 //About Route
@@ -51,6 +51,26 @@ app.get('/register',function(req,res) {
 
 
 //---------------Post Routes Section----------------------------
+
+
+//Gets the data from the login screen
+app.post('/dologin', function(req,res) {
+    console.log(JSON.stringify(req.body))
+    var uname = req.body.username;
+    var pword = req.body.password;
+
+    db.collection('people').findOne({"login.username" :uname},function(err,result) {
+        if (err) throw err;
+
+        if (!result){res.redirect('/login');return}
+
+        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/') }
+
+        else {res.redirect('/login')}
+    });
+});
+
+//Creates an entry of the user in the databaase
 app.post('/register',function(req,res) {
     //if you are already logged in
     if(req.session.loggedin){console.log("Already logged in");res.redirect('/');return;}
