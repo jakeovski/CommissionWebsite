@@ -7,7 +7,7 @@ app.use(express.static('public'));
 
 //Main Page
 app.get('/', function(req,res) {
-    res.render('public/views/pages/index');
+    res.render('/pages/index');
 });
 
 app.listen(8080);
