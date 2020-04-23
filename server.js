@@ -49,6 +49,29 @@ app.get('/register',function(req,res) {
     res.render('pages/reg');
 });
 
+//LogOut Route
+app.get('/logout',function(req,res) {
+    req.session.logedin = false;
+    req.session.destroy();
+    res.redirect('/');
+});
+
+//Porfile Route
+app.get('/profile',function(req,res) {
+    var uname = req.query.username;
+
+    db.collection('people').findOne({
+        "login.username": uname
+    }, function(err,result) {
+        if (err) throw err;
+
+        //Sending the result to the user page
+        res.rednder('pages/profile', {
+            user:result
+        })
+    });
+});
+
 
 //---------------Post Routes Section----------------------------
 
