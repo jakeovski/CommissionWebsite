@@ -77,7 +77,7 @@ app.get('/profile',function(req,res) {
         if (err) throw err;
 
         //Sending the result to the user page
-        res.rednder('pages/profile', {
+        res.render('pages/profile', {
             user:result
         })
     });
