@@ -31,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 //---------------Get Routes Section ----------------------------
 //Main Page
 app.get('/', function(req,res) {
-    res.render('pages/main');
+    res.render('pages/index');
 });
 
 //About Route
