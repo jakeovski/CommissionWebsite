@@ -37,8 +37,9 @@ app.get('/', function(req,res) {
 app.get('/MainPage',function(req,res) {
     //if the user is not logged in redirect them to login page
     if(!req.session.loggedin){res.redirect('/login');return;}
-    res.locals.user = user;
-    res.render('pages/main');
+    res.render('pages/main', {
+        uname:uname
+    });
 });
 
 //About Route
