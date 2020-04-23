@@ -47,7 +47,8 @@ app.get('/MainPage',function(req,res) {
 
 //About Route
 app.get('/about',function(req,res) {
-    res.render('pages/about');
+    if(!req.session.loggedin){res.render('/pages/about');return;}
+    res.render('pages/about2');
 });
 
 //Login Route
