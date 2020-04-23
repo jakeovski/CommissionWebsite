@@ -18,6 +18,9 @@ app.set('view engine', 'ejs');
 //Database
 var db;
 
+//CurrentUser
+var currentUser;
+
 //Connection to mongo db
 MongoClient.connect(url,function(err,database) {
     if(err) throw err;
@@ -38,7 +41,7 @@ app.get('/MainPage',function(req,res) {
     //if the user is not logged in redirect them to login page
     if(!req.session.loggedin){res.redirect('/login');return;}
     res.render('pages/main', {
-        uname:uname
+        currentUser : currentUser
     });
 });
 
@@ -95,7 +98,7 @@ app.post('/dologin', function(req,res) {
 
         if (!result){res.redirect('/login');return}
 
-        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/MainPage') }
+        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/MainPage');currentUser = uname;}
 
         else {res.redirect('/login')}
     });
