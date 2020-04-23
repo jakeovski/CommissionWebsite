@@ -10624,4 +10624,19 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+/* Profile Page Special CSS */
+.profile-page .page-header {
+  height: 380px;
+  background-position:center;
+}
+
+.page-header {
+  height: 100vh;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+}
 /*# sourceMappingURL=bootstrap.css.map */
