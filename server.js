@@ -34,6 +34,13 @@ app.get('/', function(req,res) {
     res.render('pages/index');
 });
 
+app.get('/MainPage',function(req,res) {
+    //if the user is not logged in redirect them to login page
+    if(!req.session.loggedin){res.redirect('/login');return;}
+
+    res.render('pages/main');
+})
+
 //About Route
 app.get('/about',function(req,res) {
     res.render('pages/about');
@@ -87,7 +94,7 @@ app.post('/dologin', function(req,res) {
 
         if (!result){res.redirect('/login');return}
 
-        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/') }
+        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/MainPage') }
 
         else {res.redirect('/login')}
     });
