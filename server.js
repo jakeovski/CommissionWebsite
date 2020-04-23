@@ -81,8 +81,9 @@ app.get('/profile',function(req,res) {
 
         //Sending the result to the user page
         res.render('pages/profile', {
-            user:result
-        })
+            user:result,
+            currentUser : currentUser
+        });
     });
 });
 
