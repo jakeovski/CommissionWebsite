@@ -98,7 +98,7 @@ app.post('/dologin', function(req,res) {
 
         if (!result){res.redirect('/login');return}
 
-        if (result.login.password = pword){ req.session.loggedin = true;res.redirect('/MainPage');currentUser = uname;}
+        if (result.login.password == pword){ req.session.loggedin = true;res.redirect('/MainPage');currentUser = uname;}
 
         else {res.redirect('/login')}
     });
