@@ -38,8 +38,10 @@ app.get('/MainPage',function(req,res) {
     //if the user is not logged in redirect them to login page
     if(!req.session.loggedin){res.redirect('/login');return;}
 
-    res.render('pages/main',
-    {currentUser : req.user});
+    res.render('pages/main');
+    var user = snap.val();
+    console.log('User data is:' + JSON.stringify(user));
+    res.locals.user = user;
 });
 
 //About Route
@@ -119,7 +121,7 @@ app.post('/register',function(req,res) {
             if(err) throw err;
             console.log("Saved to database");
             //when completed redirect to main page
-            res.redirect('/');
+            res.redirect('/login');
         });
 
 });
