@@ -37,8 +37,6 @@ app.get('/', function(req,res) {
 app.get('/MainPage',function(req,res) {
     //if the user is not logged in redirect them to login page
     if(!req.session.loggedin){res.redirect('/login');return;}
-    var user = JSON.stringify(snap.val());
-    console.log('User data is: ' + user);
     res.locals.user = user;
     res.render('pages/main');
 });
