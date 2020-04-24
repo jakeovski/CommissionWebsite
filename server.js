@@ -65,7 +65,7 @@ app.get('/register',function(req,res) {
 
 //LogOut Route
 app.get('/logout',function(req,res) {
-    req.session.logedin = false;
+    req.session.loggedin = false;
     req.session.destroy();
     res.redirect('/');
 });
