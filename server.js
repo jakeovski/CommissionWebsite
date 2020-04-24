@@ -130,3 +130,18 @@ app.post('/register',function(req,res) {
         });
 
 });
+
+//Deletes a user from the database
+app.post('/delete',function(req,res) {
+    //check for login
+    if(!req.session.loggedin){res.redirect('/login');return;}
+    //if so get the username
+    var uname = currentUser;
+
+    //checks for username in database if exists --> delete
+    db.collection('people').deleteOne({"login.username" : uname}, function(err,result){
+        if (err) throw err;
+        //when complete redirect to the index
+        res.redirect('/');
+    });
+});
