@@ -132,7 +132,7 @@ app.post('/register',function(req,res) {
 });
 
 //Deletes a user from the database
-app.post('/delete',function(req,res) {
+app.get('/delete',function(req,res) {
     //check for login
     if(!req.session.loggedin){res.redirect('/login');return;}
     //if so get the username
