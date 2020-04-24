@@ -10817,4 +10817,15 @@ img.rounded {
   color: #999;
 }
 
+/* Index Page Buttons */
+#signInButton {
+  color:black !important;
+  background-color: #e0782e !important;
+}
+
+#signInButton:hover {
+  color:black !important;
+  background-color: #f4d74b !important;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
