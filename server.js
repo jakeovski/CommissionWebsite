@@ -1,3 +1,4 @@
+//Declaring variables
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/exposure";
 const express = require('express');
@@ -8,6 +9,7 @@ const app = express();
 //Using sessions
 app.use(session({secret : 'example'}));
 
+//Using body Parser
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -29,14 +31,16 @@ MongoClient.connect(url,function(err,database) {
     console.log('Listening on 8080');
 });
 
+//Make server use public folder
 app.use(express.static(__dirname + '/public'));
 
 //---------------Get Routes Section ----------------------------
-//Main Page
+//Index Page Route
 app.get('/', function(req,res) {
     res.render('pages/index');
 });
 
+//Main Page Route
 app.get('/MainPage',function(req,res) {
     //if the user is not logged in redirect them to login page
     if(!req.session.loggedin){res.redirect('/login');return;}
