@@ -7,8 +7,7 @@ const bodyParser = require('body-parser');
 const php = require("php-to-node");
 const app = express();
 
-searchTerm = $("#searchInput").val();
-getDeviantResults(searchTerm);
+
 
 //Using sessions
 app.use(session({secret : 'example'}));
@@ -113,7 +112,11 @@ app.get('/delete',function(req,res) {
 
 
 //---------------Post Routes Section----------------------------
+app.post('/results',function(req,res) {
+    searchTerm = req.body.search;
+    getDeviantResults(searchTerm);
 
+})
 
 //Gets the data from the login screen
 app.post('/dologin', function(req,res) {

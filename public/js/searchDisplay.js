@@ -26,7 +26,7 @@ function phpRequest(){
 
   $(document).ready(function(){
       $.ajax({
-          url: 'server.js',
+          url: '/results',
           type: 'get',
           data: searchTerm,
           dataType: 'JSON',
