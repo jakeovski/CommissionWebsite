@@ -94,15 +94,18 @@
     <div class="container">
         <div class="container h-100">
 
-            <form action="search.html" id="search" >
+            <form id="search" >
                 <input type="search" id="searchInput" >
-                <i class="fa fa-search" id="fa" onclick="displayCorrectSearches()"></i>
+                <i class="fa fa-search" id="fa" onclick="phpRequest()"></i>
             </form>
         </div>
     </div>
 
     <!--Search Button End-->
 
+    <!-- Results -->
+    <div id = "resultsOverview"></div>
+    <div id = "loadBox"></div>
     <div id = "searchResultsBox"></div>
 
 
