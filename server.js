@@ -112,7 +112,7 @@ app.get('/delete',function(req,res) {
 
 
 //---------------Post Routes Section----------------------------
-app.post('/results',function(req,res) {
+app.post('/results?',function(req,res) {
     searchTerm = req.body.search;
     getDeviantResults(searchTerm);
 
