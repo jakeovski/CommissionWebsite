@@ -26,7 +26,7 @@ function phpRequest(){
 
   $(document).ready(function(){
       $.ajax({
-          url: 'public/js/deviantConnection.php',
+          url: 'js/deviantConnection.php',
           type: 'get',
           data: searchTerm,
           dataType: 'JSON',
