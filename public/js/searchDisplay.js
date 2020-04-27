@@ -26,7 +26,7 @@ function phpRequest(){
 
   $(document).ready(function(){
       $.ajax({
-          url: 'js/deviantArt.js',
+          url: 'server.js',
           type: 'get',
           data: searchTerm,
           dataType: 'JSON',
