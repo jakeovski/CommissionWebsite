@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const php = require("php-to-node");
 const app = express();
 
-searchTerm = _GET['term'];
+searchTerm = $("#searchInput").val();
 getDeviantResults(searchTerm);
 
 //Using sessions
