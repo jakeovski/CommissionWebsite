@@ -21,7 +21,7 @@ app.use(cors({
     'origin': '*',
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
     'preflightContinue': false
-  }));
+}));
 
 
 //Using body Parser
@@ -188,10 +188,23 @@ app.post('/results', function (req, res) {
     //     return db.collection('search');
     // })
 
-    (async function(){
+    (async function () {
         var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
-        console.log("Woo done!", result)
+        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+        for (var i = 0; i < result.results.length; i++) {
+            var datatostore = {
+                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+                "profile": result.results[i].url,
+                "image": result.results[i].thumbs[1].src
+            }
+
+            db.collection('search').save(datatostore, function (err, result) {
+                if (err) throw err;
+                console.log("Saved to database");
+            })
+        }
     })()
+
 });
 
 
