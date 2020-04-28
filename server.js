@@ -123,14 +123,16 @@ app.post('/results',function(req,res) {
     //     var output = response;
     //     res.send(output);
     // });
-    var output;
-    function checkForCommissionOpen() {
-        deviantnode.getUserInfo(clientid,clientSecret,{username : "astri-lohne"}).then(response => {
-            output = response;
-        });
-    };
 
-    res.send(output);
+    // function checkForCommissionOpen() {
+    //     deviantnode.getUserInfo(clientid,clientSecret,{username : "astri-lohne"}).then(response => {
+    //         output = response;
+    //     });
+    // };
+    const profile_info = deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', profileinfo_options).then(response => console.log(response));
+
+    res.send(profile_info);
+
 
 });
 
