@@ -125,7 +125,10 @@ app.post('/results',function(req,res) {
     // });
 
     function checkForCommissionOpen(user) {
-        deviantnode.getUserInfo(clientid,clientSecret,{username : user}).then(response => console.log(response));
+        deviantnode.getUserInfo(clientid,clientSecret,{username : user}).then(response => {
+            var output = response;
+            return output;
+        });
     };
 
     res.send(checkForCommissionOpen("astri-lohne"));
