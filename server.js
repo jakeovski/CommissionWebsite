@@ -143,7 +143,9 @@ app.post('/results', function (req, res) {
         };
         res.render('pages/main', {
             currentUser : currentUser,
-            deviants : db.collection('search')
+            deviantName : db.collection('search').distinct("user.username"),
+            deviantProfile : db.collection('search').distinct("profile"),
+            devinatImage : db.collection('search').distinct("image")
         });
     });
 
