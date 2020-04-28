@@ -119,21 +119,14 @@ app.get('/delete',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results',function(req,res) {
     //Test for the API\
-    // deviantnode.getPopularDeviations(clientid,clientSecret).then(response => {
-    //     var output = response;
-    //     res.send(output);
-   // });
 
-    // function checkForCommissionOpen() {
-    //     deviantnode.getUserInfo(clientid,clientSecret,{username : "astri-lohne"}).then(response => {
-    //         output = response;
-    //     });
-    // };
-    var result = deviantnode.getPopularDeviations(clientid,clientSecret);
+    // var result = deviantnode.getPopularDeviations(clientid,clientSecret);
 
-    result.then(response => {
-        res.send(response);
-    })
+    // result.then(response => {
+    //     res.send(response);
+    // })
+    var seacrhItem = req.body.seacrh;
+    console.log(searchItem);
 
 });
 
