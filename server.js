@@ -119,12 +119,18 @@ app.get('/delete',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results',function(req,res) {
     //Test for the API\
-    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => {
-        var output = response;
-        res.send(output);
-    });
+    // deviantnode.getPopularDeviations(clientid,clientSecret).then(response => {
+    //     var output = response;
+    //     res.send(output);
+    // });
 
-})
+    function checkForCommissionOpen(user) {
+        deviantnode.getUserInfo(clientid,clientSecret,{username : user}).then(response => console.log(response));
+    };
+
+    res.send(checkForCommissionOpen("astri-lohne"));
+
+});
 
 //Gets the data from the login screen
 app.post('/dologin', function(req,res) {
