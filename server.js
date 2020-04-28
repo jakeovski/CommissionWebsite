@@ -212,9 +212,11 @@ app.post('/results', function (req, res) {
     //     console.log("SUKa");
     // })()
 
-    const deviations = deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" });
+   let deviantSearch = function (searchItem) {
+        return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
+    }
 
-    deviations().then(result => {
+    deviantSearch().then(result => {
         console.log(result);
     })
 
@@ -222,6 +224,8 @@ app.post('/results', function (req, res) {
         const data = await deviations()
         console.log(data)
     }
+
+    addToDatabase()
 });
 
 
