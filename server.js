@@ -118,7 +118,6 @@ app.get('/delete',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results',function(req,res) {
     deviantnode.getPopularDeviations(clientid,clientSecret).then(response => console.log(response.results[0]));
-    res.redirect('/about');
 })
 
 //Gets the data from the login screen
