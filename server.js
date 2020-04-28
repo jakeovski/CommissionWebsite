@@ -127,7 +127,7 @@ app.post('/results',function(req,res) {
     // })
     var searchItem = req.body.search;
     //console.log(searchItem);
-    var deviantsearch = deviantnode.getPopularDeviations(clientid,clientSecret,{category : "drawings-and-paintings",q : searchItem,time : "alltime"});
+    var deviantsearch = deviantnode.getPopularDeviations(clientid,clientSecret,{category : "digitalart/paintings",q : searchItem,time : "alltime"});
 
     deviantsearch.then(response => {
         res.send(response);
