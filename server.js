@@ -129,14 +129,11 @@ app.post('/results',function(req,res) {
     //         output = response;
     //     });
     // };
-    let output = null;
-    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => {
-        output = response;
-        return anotherPromise();
-    }).then(someResult => {
-        console.log(someResult);
-        console.log(output);
-    });
+    var result = deviantnode.getPopularDeviations(clientid,clientSecret);
+
+    result.then(response => {
+        res.send(response);
+    })
 
 });
 
