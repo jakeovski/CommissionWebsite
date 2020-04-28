@@ -14,8 +14,7 @@ function getAccessToken(searchItem) {
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // },
     type: "POST", /* or type:"GET" or type:"PUT" */
-    crossDomain: true,
-    dataType: "jsonp",
+    dataType: "json",
     data: {
     },
     success: function (result) {
