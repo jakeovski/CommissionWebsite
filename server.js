@@ -130,6 +130,15 @@ app.post('/results',function(req,res) {
     var deviantsearch = deviantnode.getPopularDeviations(clientid,clientSecret,{category : "digitalart/paintings",q : searchItem,time : "alltime"});
 
     deviantsearch.then(response => {
+        var datatostore = {
+            "user" : {"username" : response.results[0].author.username, "userIcon" : response.results[0].author.usericon},
+            "profile" : response.results[0].url,
+            "image" : response.results[0].thumbs[1].src}
+
+            db.collection('search').save(datatostore,function(err,result){
+                if(err) throw err;
+                console.log("Saved to database");
+            })
         res.send(response);
     });
 
