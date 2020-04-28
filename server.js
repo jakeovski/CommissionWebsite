@@ -126,7 +126,12 @@ app.post('/results',function(req,res) {
     //     res.send(response);
     // })
     var searchItem = req.body.search;
-    console.log(searchItem);
+    //console.log(searchItem);
+    var deviantsearch = deviantnode.getTagDeviations(clientid,clientSecret, { tag: searchItem });
+
+    deviantsearch.then(response => {
+        res.send(response);
+    });
 
 });
 
