@@ -203,7 +203,7 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
-        console.log("SUKa");
+        await console.log("SUKa");
     })()
 
 
