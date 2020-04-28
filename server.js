@@ -123,35 +123,46 @@ app.post('/results', function (req, res) {
     //console.log(searchItem);
     //As DeviantArt API uses returns only promises we will have to work with that
     //Getting the promise into a variable for convinience
-    var deviantsearch = deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" });
-    //Clearing the search collection so it is ready for new search results
-    console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
-    //Promise work
-    deviantsearch.then(response => {
-        //Loop through the response and add all the necessary info into our database
-        for (var i = 0; i < response.results.length; i++) {
-            var datatostore = {
-                "user": { "username": response.results[i].author.username, "userIcon": response.results[i].author.usericon },
-                "profile": response.results[i].url,
-                "image": response.results[i].thumbs[1].src
-            }
+    // var deviantsearch = deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" });
+    // //Clearing the search collection so it is ready for new search results
+    // console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+    // //Promise work
+    // deviantsearch.then(response => {
+    //     //Loop through the response and add all the necessary info into our database
+    //     for (var i = 0; i < response.results.length; i++) {
+    //         var datatostore = {
+    //             "user": { "username": response.results[i].author.username, "userIcon": response.results[i].author.usericon },
+    //             "profile": response.results[i].url,
+    //             "image": response.results[i].thumbs[1].src
+    //         }
 
-            db.collection('search').save(datatostore, function (err, result) {
-                if (err) throw err;
-                console.log("Saved to database");
-            })
-        }
-        return db.collection('search');
-        // res.render('pages/results', {
-        //     currentUser : currentUser,
-        //     deviantName : db.collection('search').distinct("user.username"),
-        //     deviantProfile : db.collection('search').distinct("profile"),
-        //     devinatImage : db.collection('search').distinct("image")
-        // });
-    }).then(function(result) {
-        console.log(result.findOne());
-    });
+    //         db.collection('search').save(datatostore, function (err, result) {
+    //             if (err) throw err;
+    //             console.log("Saved to database");
+    //         })
+    //     }
+    //     return db.collection('search');
+    //     // res.render('pages/results', {
+    //     //     currentUser : currentUser,
+    //     //     deviantName : db.collection('search').distinct("user.username"),
+    //     //     deviantProfile : db.collection('search').distinct("profile"),
+    //     //     devinatImage : db.collection('search').distinct("image")
+    //     // });
+    // }).then(function(result) {
+    //     console.log(result.findOne());
+    // });
 
+
+    //02
+    let deviantSearch = function(searchItem) {
+        return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" }).then(response => {return response})
+    }
+
+    let data = deviantSearch(searchItem)
+
+    data.then(function(result) {
+        console.log(result)
+    })
 });
 
 //Gets the data from the login screen
