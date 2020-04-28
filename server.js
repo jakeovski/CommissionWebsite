@@ -177,7 +177,7 @@ app.post('/results', function (req, res) {
             })
         }
     }).then(() => {
-        console.log(db.collection('search').findOne());
+        console.log("I'm Done");
     })
 
 });
