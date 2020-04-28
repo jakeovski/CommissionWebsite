@@ -191,9 +191,9 @@ app.post('/results', function (req, res) {
     // (async function () {
     //     var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
     //     console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
-        
-        
-        
+
+
+
     //     function populate() {
     //         for (var i = 0; i < result.results.length; i++) {
     //             var datatostore = {
@@ -212,7 +212,7 @@ app.post('/results', function (req, res) {
     //     console.log("SUKa");
     // })()
 
-   let deviantSearch = function (searchItem) {
+    let deviantSearch = function (searchItem) {
         return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
     }
 
@@ -221,8 +221,19 @@ app.post('/results', function (req, res) {
     })
 
     const addToDatabase = async _ => {
-        const data = await deviations()
-        console.log(data)
+        const result = await deviations()
+        for (var i = 0; i < result.results.length; i++) {
+            var datatostore = {
+                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+                "profile": result.results[i].url,
+                "image": result.results[i].thumbs[1].src
+            }
+
+            db.collection('search').save(datatostore, function (err, result) {
+                if (err) throw err;
+                console.log("Saved to database");
+            })
+        };
     }
 
     addToDatabase()
