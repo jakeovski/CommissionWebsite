@@ -202,8 +202,9 @@ app.post('/results', function (req, res) {
                 if (err) throw err;
                 console.log("Saved to database");
             })
-        }
-    })().then(console.log("Finished"))
+        };
+        console.log("SUKa");
+    })()
 
 
 
