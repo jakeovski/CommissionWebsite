@@ -176,6 +176,7 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         }
+    }).then(() => {
         console.log(db.collection('search').findOne());
     })
 
