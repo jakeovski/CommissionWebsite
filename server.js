@@ -203,9 +203,9 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         }
-    })()
+    })().then(console.log("Finished"))
 
-    console.log("Finished!");
+
 
 });
 
