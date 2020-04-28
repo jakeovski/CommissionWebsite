@@ -125,9 +125,9 @@ app.post('/results',function(req,res) {
     // result.then(response => {
     //     res.send(response);
     // })
-    var searchItem = req.body.search + " commission";
+    var searchItem = req.body.search;
     //console.log(searchItem);
-    var deviantsearch = deviantnode.getTagDeviations(clientid,clientSecret, { tag: searchItem });
+    var deviantsearch = deviantnode.getPopularDeviations(clientid,clientSecret,{category : "drawings-and-paintings",q : searchItem,time : "alltime"});
 
     deviantsearch.then(response => {
         res.send(response);
