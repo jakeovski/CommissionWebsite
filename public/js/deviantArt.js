@@ -14,6 +14,7 @@ function getAccessToken(searchItem) {
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // },
     type: "POST", /* or type:"GET" or type:"PUT" */
+    headers: {  'Access-Control-Allow-Origin': 'https://www.deviantart.com/' },
     dataType: "json",
     data: {
     },
