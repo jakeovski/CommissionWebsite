@@ -10,6 +10,7 @@ const app = express();
 
 var clientid = '12052';
 var clientSecret = '13ae1cb7fdfb9753668db6e2310c9323';
+var output = "";
 //Using sessions
 app.use(session({secret : 'example'}));
 
@@ -118,7 +119,8 @@ app.get('/delete',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results',function(req,res) {
     //Test for the API\
-    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => res.send(JSON.stringify(response)));
+    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => output = response);
+    res.send(output);
 
 })
 
