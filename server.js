@@ -125,7 +125,7 @@ app.post('/results',function(req,res) {
     // result.then(response => {
     //     res.send(response);
     // })
-    var searchItem = req.body.seacrh;
+    var searchItem = req.body.search;
     console.log(searchItem);
 
 });
