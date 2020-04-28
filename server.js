@@ -141,7 +141,7 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
-        res.render('pages/main', {
+        res.render('pages/results', {
             currentUser : currentUser,
             deviantName : db.collection('search').distinct("user.username"),
             deviantProfile : db.collection('search').distinct("profile"),
