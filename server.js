@@ -141,7 +141,9 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
-        res.send(response);
+        res.render('pages/main', {
+            currentUser : currentUser,
+        })
     });
 
 });
