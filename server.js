@@ -129,14 +129,11 @@ app.post('/results',function(req,res) {
     //         output = response;
     //     });
     // };
-    checkForCommissionOpen();
-    async function checkForCommissionOpen(){
-        var profile_info;
-        await deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', {username : "astri-lohne"}).then(response => {
-            profile_info = response;
-            res.send(profile_info);
-        });
-    };
+    getAccessToken();
+    function getAccessToken() {
+        var url = "https://www.deviantart.com/oauth2/token?grant_type=client_credentials&client_id=" + clientid + "&client_secret=" + clientSecret;
+        console.log(url);
+    }
 
 
 });
