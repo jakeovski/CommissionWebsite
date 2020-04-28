@@ -217,11 +217,12 @@ app.post('/results', function (req, res) {
     }
 
     deviantSearch().then(result => {
-        console.log(result);
+        return result;
     })
 
     const addToDatabase = async _ => {
         const result = await deviations()
+        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
