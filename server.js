@@ -149,7 +149,7 @@ app.post('/results', function (req, res) {
         //     devinatImage : db.collection('search').distinct("image")
         // });
     }).then(function(result) {
-        console.log(result);
+        console.log(result.findOne());
     });
 
 });
