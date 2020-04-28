@@ -160,33 +160,25 @@ app.post('/results', function (req, res) {
 
     let data = deviantSearch(searchItem)
 
-    let accessDatabase = function () {
-        data.then(function (result) {
-            //console.log(result)
-            console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+    data.then(function (result) {
+        //console.log(result)
+        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
 
-            for (var i = 0; i < result.results.length; i++) {
-                var datatostore = {
-                    "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-                    "profile": result.results[i].url,
-                    "image": result.results[i].thumbs[1].src
-                }
-
-                db.collection('search').save(datatostore, function (err, result) {
-                    if (err) throw err;
-                    console.log("Saved to database");
-                })
+        for (var i = 0; i < result.results.length; i++) {
+            var datatostore = {
+                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+                "profile": result.results[i].url,
+                "image": result.results[i].thumbs[1].src
             }
-            return db.collection('search');
-        }).then(response => { return response })
 
-    }
-
-    let search = accessDatabase()
-
-    search.then(function(result) {
-        console.log(result.findOne())
+            db.collection('search').save(datatostore, function (err, result) {
+                if (err) throw err;
+                console.log("Saved to database");
+            })
+        }
+        console.log(db.collection('search').findOne());
     })
+
 });
 
 //Gets the data from the login screen
