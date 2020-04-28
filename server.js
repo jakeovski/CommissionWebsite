@@ -140,7 +140,8 @@ app.post('/results', function (req, res) {
                 if (err) throw err;
                 console.log("Saved to database");
             })
-        };
+        }
+        return db.collection('search');
         // res.render('pages/results', {
         //     currentUser : currentUser,
         //     deviantName : db.collection('search').distinct("user.username"),
