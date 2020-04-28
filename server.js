@@ -143,7 +143,8 @@ app.post('/results', function (req, res) {
         };
         res.render('pages/main', {
             currentUser : currentUser,
-        })
+            deviants : db.collection('search')
+        });
     });
 
 });
