@@ -237,9 +237,11 @@ app.post('/results', function (req, res) {
         };
     }
 
-    addToDatabase()
-
-    console.log("I did It");
+    const printToPage = async _ => {
+        await addToDatabase()
+        console.log("I did it");
+    }
+    printToPage()
 });
 
 
