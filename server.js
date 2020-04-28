@@ -128,6 +128,7 @@ app.post('/results', function (req, res) {
     console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
     //Promise work
     deviantsearch.then(response => {
+        //Loop through the response and add all the necessary info into our database
         for (var i = 0; i < response.results.length; i++) {
             var datatostore = {
                 "user": { "username": response.results[i].author.username, "userIcon": response.results[i].author.usericon },
@@ -139,7 +140,7 @@ app.post('/results', function (req, res) {
                 if (err) throw err;
                 console.log("Saved to database");
             })
-        }
+        };
         res.send(response);
     });
 
