@@ -5,6 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const deviantnode = require('deviantnode');
+const cors = require('cors');
 const app = express();
 
 
@@ -13,6 +14,15 @@ var clientSecret = '13ae1cb7fdfb9753668db6e2310c9323';
 var output = "";
 //Using sessions
 app.use(session({ secret: 'example' }));
+
+app.use(cors({
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'origin': '*',
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+  }));
+  
 
 //Using body Parser
 app.use(bodyParser.urlencoded({
