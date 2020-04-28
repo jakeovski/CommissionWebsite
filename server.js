@@ -123,15 +123,14 @@ app.post('/results',function(req,res) {
     //     var output = response;
     //     res.send(output);
     // });
-
-    function checkForCommissionOpen(user) {
-        deviantnode.getUserInfo(clientid,clientSecret,{username : user}).then(response => {
-            var output = response;
-            return output;
+    var output;
+    function checkForCommissionOpen() {
+        deviantnode.getUserInfo(clientid,clientSecret,{username : "astri-lohne"}).then(response => {
+            output = response;
         });
     };
 
-    res.send(checkForCommissionOpen("astri-lohne"));
+    res.send(output);
 
 });
 
