@@ -129,11 +129,13 @@ app.post('/results',function(req,res) {
     //         output = response;
     //     });
     // };
-    var profile_info;
     checkForCommissionOpen();
     async function checkForCommissionOpen(){
-        await deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', {username : "astri-lohne"}).then(response => profile_info = response);
-        res.send(profile_info);
+        var profile_info;
+        await deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', {username : "astri-lohne"}).then(response => {
+            profile_info = response;
+            res.send(profile_info);
+        });
     };
 
 
