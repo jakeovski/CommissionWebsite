@@ -125,7 +125,7 @@ app.post('/results', function (req, res) {
     //Getting the promise into a variable for convinience
     var deviantsearch = deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" });
     //Clearing the search collection so it is ready for new search results
-    console.log("Collection pre-cleaning complete: " + db.search.drop());
+    console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
     //Promise work
     deviantsearch.then(response => {
         for (var i = 0; i < response.results.length; i++) {
