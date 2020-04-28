@@ -122,17 +122,18 @@ app.post('/results',function(req,res) {
     // deviantnode.getPopularDeviations(clientid,clientSecret).then(response => {
     //     var output = response;
     //     res.send(output);
-    // });
+   // });
 
     // function checkForCommissionOpen() {
     //     deviantnode.getUserInfo(clientid,clientSecret,{username : "astri-lohne"}).then(response => {
     //         output = response;
     //     });
     // };
-    getAccessToken();
-    function getAccessToken() {
-        var url = "https://www.deviantart.com/oauth2/token?grant_type=client_credentials&client_id=" + clientid + "&client_secret=" + clientSecret;
-        console.log(url);
+    res.send(getExample());
+    async function getExample() {
+        var result = await deviantnode.getPopularDeviations(clientid,clientSecret);
+
+        return result;
     }
 
 
