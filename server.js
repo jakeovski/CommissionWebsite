@@ -141,12 +141,13 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
-        res.render('pages/results', {
-            currentUser : currentUser,
-            deviantName : db.collection('search').distinct("user.username"),
-            deviantProfile : db.collection('search').distinct("profile"),
-            devinatImage : db.collection('search').distinct("image")
-        });
+        console.log(db.collection('search').distinct("user.username"));
+        // res.render('pages/results', {
+        //     currentUser : currentUser,
+        //     deviantName : db.collection('search').distinct("user.username"),
+        //     deviantProfile : db.collection('search').distinct("profile"),
+        //     devinatImage : db.collection('search').distinct("image")
+        // });
     });
 
 });
