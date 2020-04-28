@@ -4,10 +4,12 @@ const url = "mongodb://localhost:27017/exposure";
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const deviantnode = require('deviantnode');
 const app = express();
 
 
-
+var clientid = '12052';
+var clientSecret = '13ae1cb7fdfb9753668db6e2310c9323';
 //Using sessions
 app.use(session({secret : 'example'}));
 
@@ -114,7 +116,9 @@ app.get('/delete',function(req,res) {
 
 
 //---------------Post Routes Section----------------------------
-
+app.post('/results',function(req,res) {
+    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => console.log(response.results[0]));
+})
 
 //Gets the data from the login screen
 app.post('/dologin', function(req,res) {
