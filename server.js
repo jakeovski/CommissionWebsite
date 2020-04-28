@@ -141,6 +141,7 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
+    }).then(() => {
         console.log(db.collection('search').distinct("user.username"));
         // res.render('pages/results', {
         //     currentUser : currentUser,
