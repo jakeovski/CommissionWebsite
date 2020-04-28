@@ -188,26 +188,40 @@ app.post('/results', function (req, res) {
     //     return db.collection('search');
     // })
 
-    (async function () {
-        var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
-        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
-        for (var i = 0; i < result.results.length; i++) {
-            var datatostore = {
-                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-                "profile": result.results[i].url,
-                "image": result.results[i].thumbs[1].src
-            }
+    // (async function () {
+    //     var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
+    //     console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+        
+        
+        
+    //     function populate() {
+    //         for (var i = 0; i < result.results.length; i++) {
+    //             var datatostore = {
+    //                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+    //                 "profile": result.results[i].url,
+    //                 "image": result.results[i].thumbs[1].src
+    //             }
 
-            db.collection('search').save(datatostore, function (err, result) {
-                if (err) throw err;
-                console.log("Saved to database");
-            })
-        };
-        await console.log("SUKa");
-    })()
+    //             db.collection('search').save(datatostore, function (err, result) {
+    //                 if (err) throw err;
+    //                 console.log("Saved to database");
+    //             })
+    //         };
+    //     }
 
+    //     console.log("SUKa");
+    // })()
 
+    const deviations = deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" });
 
+    deviations().then(result => {
+        console.log(result);
+    })
+
+    const addToDatabase = async _ => {
+        const data = await deviations()
+        console.log(data)
+    }
 });
 
 
