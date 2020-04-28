@@ -119,8 +119,8 @@ app.get('/delete',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results',function(req,res) {
     //Test for the API\
-    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => output += response);
-    res.send(output);
+    var response = deviantnode.getPopularDeviations(clientid,clientSecret);
+    res.send(response);
 
 })
 
