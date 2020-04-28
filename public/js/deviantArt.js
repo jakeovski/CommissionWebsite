@@ -14,7 +14,7 @@ function getAccessToken(searchItem) {
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // },
     type: "POST", /* or type:"GET" or type:"PUT" */
-    headers: {  'Access-Control-Allow-Origin': 'https://www.deviantart.com/' },
+    headers: {  'Access-Control-Allow-Origin': 'https://www.deviantart.com/oauth2/token?grant_type=client_credentials&client_id=12052&client_secret=13ae1cb7fdfb9753668db6e2310c9323' },
     dataType: "json",
     data: {
     },
