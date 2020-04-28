@@ -205,6 +205,8 @@ app.post('/results', function (req, res) {
         }
     })()
 
+    console.log("Finished!");
+
 });
 
 
