@@ -22,7 +22,7 @@ app.use(cors({
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
     'preflightContinue': false
   }));
-  
+
 
 //Using body Parser
 app.use(bodyParser.urlencoded({
@@ -164,32 +164,36 @@ app.post('/results', function (req, res) {
 
 
     //02
-    let deviantSearch = function (searchItem) {
-        return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" }).then(response => { return response })
-    }
+    // let deviantSearch = function (searchItem) {
+    //     return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" }).then(response => { return response })
+    // }
 
-    let data = deviantSearch(searchItem)
-    data.then(function (result) {
-        //console.log(result)
-        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+    // let data = deviantSearch(searchItem)
+    // data.then(function (result) {
+    //     //console.log(result)
+    //     console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
 
-        for (var i = 0; i < result.results.length; i++) {
-            var datatostore = {
-                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-                "profile": result.results[i].url,
-                "image": result.results[i].thumbs[1].src
-            }
+    //     for (var i = 0; i < result.results.length; i++) {
+    //         var datatostore = {
+    //             "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+    //             "profile": result.results[i].url,
+    //             "image": result.results[i].thumbs[1].src
+    //         }
 
-            db.collection('search').save(datatostore, function (err, result) {
-                if (err) throw err;
-                console.log("Saved to database");
-            })
-        }
-    }).then(function () {
-        console.log("Done");
+    //         db.collection('search').save(datatostore, function (err, result) {
+    //             if (err) throw err;
+    //             console.log("Saved to database");
+    //         })
+    //     }
+    //     return db.collection('search');
+    // })
+
+    (async function(){
+        var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
+        console.log("Woo done!", result)
     })
-
 });
+
 
 //Gets the data from the login screen
 app.post('/dologin', function (req, res) {
