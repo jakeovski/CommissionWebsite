@@ -191,7 +191,7 @@ app.post('/results', function (req, res) {
     (async function(){
         var result = await deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
         console.log("Woo done!", result)
-    })
+    })()
 });
 
 
