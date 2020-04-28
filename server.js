@@ -142,7 +142,7 @@ app.post('/results', function (req, res) {
             })
         };
     }).then(() => {
-        console.log(db.collection('search').distinct("user.username"));
+        console.log(await db.collection('search').distinct("user.username"));
         // res.render('pages/results', {
         //     currentUser : currentUser,
         //     deviantName : db.collection('search').distinct("user.username"),
