@@ -238,6 +238,8 @@ app.post('/results', function (req, res) {
     }
 
     addToDatabase()
+
+    console.log("I did It");
 });
 
 
