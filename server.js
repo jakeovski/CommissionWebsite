@@ -119,7 +119,7 @@ app.get('/delete',function(req,res) {
 app.post('/results',function(req,res) {
     //Test for the API\
     var output = "";
-    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => output = response);
+    deviantnode.getPopularDeviations(clientid,clientSecret).then(response => output = JSON.stringify(response));
     res.send(output);
 
 })
