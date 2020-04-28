@@ -129,7 +129,7 @@ app.post('/results',function(req,res) {
     //         output = response;
     //     });
     // };
-    const profile_info = deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', profileinfo_options).then(response => console.log(response));
+    const profile_info = deviantnode.getUserInfo('CLIENT_ID','CLIENT_SECRET', {username : "astri-lohne"}).then(response => console.log(response));
 
     res.send(profile_info);
 
