@@ -173,7 +173,7 @@ app.post('/results', function (req, res) {
     //     function renderResults() {
     //         res.redirect('/results');
     //     };
-
+    var searchItem = req.body.searchBar + " commission";
     function oAuth2() {
 
         var accessToken;
@@ -202,12 +202,35 @@ app.post('/results', function (req, res) {
         return accessToken;
     }
 
-    async function showToken() {
-        var accessToken = await getAccessToken()
-        console.log(accessToken);
-    };
-    console.log("Access token is");
-    showToken();
+    async function connectToDeviantArt() {
+        var accessToken = await getAccessToken();
+
+        return new Promise(function(resolve, reject) {
+
+            request({
+                url: 'https://www.deviantart.com/api/v1/oauth2/browse/popular',
+                method: "GET",
+                form: {
+                    'category_path' : 'digitalart/paintings',
+                    'q' : searchItem,
+                    'timerange' : '1month',
+                    'access_token' : accessToken
+                }
+            },function(err,res) {
+                if(err) reject(err);
+                var json = JSON.parse(res.body);
+                resolve(json);
+            });
+        });
+    }
+
+    async function getData() {
+        var data = await connectToDeviantArt();
+        console.log(data);
+    }
+
+    getData();
+
 });
 
 
