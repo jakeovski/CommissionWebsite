@@ -38,6 +38,9 @@ var db;
 //CurrentUser
 var currentUser;
 
+//SearchBox Counter
+var count = 0;
+
 //Connection to mongo db
 MongoClient.connect(url, function (err, database) {
     if (err) throw err;
@@ -128,10 +131,10 @@ app.get('/results',function(req,res) {
     db.collection('search').find().toArray(function(err,result) {
         if (err) throw err;
 
-        var array = result;
         res.render('pages/results', {
             currentUser : currentUser,
-            data : result
+            data : result,
+            i : count
         });
     });
 });
