@@ -125,10 +125,18 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results',function(req,res) {
-    console.log(db.collection('search'));
-    res.render('pages/results', {
-        currentUser : currentUser
-    });
+    console.log(db.collection('search').find());
+    db.collection('search').findOne({
+        "user.username" : "ZakuraRain"
+    },function(err,result) {
+        if(err) throw err;
+
+        // res.render('pages/results', {
+        //     currentUser : currentUser
+
+        // });
+        res.send(result);
+    })
 });
 
 
@@ -150,7 +158,7 @@ app.post('/results', function (req, res) {
 
     const addToDatabase = async _ => {
         const result = await deviantSearch()
-        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+        //console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
