@@ -134,6 +134,10 @@ app.get('/results',function(req,res) {
 
 //---------------Post Routes Section----------------------------
 app.post('/results', function (req, res) {
+    db.collection('search').drop(function(err,delOk){
+        if (err) throw err;
+        if(delOk) console.log("Collection Erased");
+    });
     //Search Item entered by user with added commission filter
     var searchItem = req.body.searchBar + " commission";
 
@@ -148,9 +152,6 @@ app.post('/results', function (req, res) {
 
     const addToDatabase = async _ => {
         const result = await deviantSearch()
-        db.collection('search').drop(function(err,delOk){
-            if (err) throw err;
-        })
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
