@@ -119,12 +119,12 @@ app.get('/delete', function (req, res) {
 });
 
 //Get route for the results
-app.get('/results',function(req,res) {
-    db.collection('search').find().toArray(function(err,result) {
+app.get('/results', function (req, res) {
+    db.collection('search').find().toArray(function (err, result) {
         if (err) throw err;
         res.render('pages/results', {
-            currentUser : currentUser,
-            data : result
+            currentUser: currentUser,
+            data: result
         });
     });
 });
@@ -135,63 +135,79 @@ app.get('/results',function(req,res) {
 //---------------Post Routes Section----------------------------
 app.post('/results', function (req, res) {
     //Search Item entered by user with added commission filter
-//     var searchItem = req.body.searchBar + " commission";
+    //     var searchItem = req.body.searchBar + " commission";
 
 
-//     let deviantSearch = function () {
-//         return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
-//     }
+    //     let deviantSearch = function () {
+    //         return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
+    //     }
 
-//     deviantSearch().then(result => {
-//         return result;
-//     })
+    //     deviantSearch().then(result => {
+    //         return result;
+    //     })
 
-//     var getResponse = async _ => {
-//         db.collection('search').drop();
-//         var result = await deviantSearch();
-//         return result;
-//     }
-    
-//     var addToDatabase = async _ => {
-//         var result = await getResponse();
-//         for (var i = 0; i < result.results.length; i++) {
-//             var datatostore = {
-//                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-//                 "profile": result.results[i].url,
-//                 "image": result.results[i].thumbs[1].src
-//             }
+    //     var getResponse = async _ => {
+    //         db.collection('search').drop();
+    //         var result = await deviantSearch();
+    //         return result;
+    //     }
 
-//             db.collection('search').save(datatostore, function (err, result) {
-//                 if (err) throw err;
-//                 console.log("Saved to database");
-//             })
-//         };
-//     };
+    //     var addToDatabase = async _ => {
+    //         var result = await getResponse();
+    //         for (var i = 0; i < result.results.length; i++) {
+    //             var datatostore = {
+    //                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+    //                 "profile": result.results[i].url,
+    //                 "image": result.results[i].thumbs[1].src
+    //             }
 
-//     addToDatabase().then(renderResults());
+    //             db.collection('search').save(datatostore, function (err, result) {
+    //                 if (err) throw err;
+    //                 console.log("Saved to database");
+    //             })
+    //         };
+    //     };
 
-//     function renderResults() {
-//         res.redirect('/results');
-//     };
+    //     addToDatabase().then(renderResults());
 
-    request({
-        url : 'https://www.deviantart.com/oauth2/token',
-        method: 'POST',
-        form: {
-            'grant_type' : 'client_credentials',
-            'client_id' : '12052',
-            'client_secret' : '13ae1cb7fdfb9753668db6e2310c9323'
-        }
-    }, function(err,res) {
-            if(err) throw err;
-            var json = JSON.parse(res.body);
-            console.log("Access Token: ", json.access_token);
-            var accessToken = json.access_token;
-            return accessToken;
-    });
+    //     function renderResults() {
+    //         res.redirect('/results');
+    //     };
 
-    console.log(accessToken);
+    function oAuth2() {
 
+        var accessToken;
+        return new Promise(function (resolve, reject) {
+
+            request({
+                url: 'https://www.deviantart.com/oauth2/token',
+                method: 'POST',
+                form: {
+                    'grant_type': 'client_credentials',
+                    'client_id': '12052',
+                    'client_secret': '13ae1cb7fdfb9753668db6e2310c9323'
+                }
+            }, function (err, res) {
+                if (err) reject (err);
+                var json = JSON.parse(res.body);
+                //console.log("Access Token: ", json.access_token);
+                accessToken = json.access_token;
+                resolve(accessToken);
+            });
+        });
+    }
+
+    async function getAccessToken() {
+        var accessToken = await oAuth2();
+        return accessToken;
+    }
+
+    async function showToken() {
+        var accessToken = await getAccessToken()
+        console.log(accessToken);
+    };
+    console.log("Access token is");
+    showToken();
 });
 
 
