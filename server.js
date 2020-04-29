@@ -239,9 +239,18 @@ app.post('/results', function (req, res) {
 
     const printToPage = async _ => {
         await addToDatabase()
-        console.log("I did it");
     }
-    printToPage()
+
+    printToPage().then(renderResults())
+
+    function renderResults() {
+        res.render('pages/results', {
+            currentUser: currentUser,
+            deviantName: db.collection('search').distinct("user.username"),
+            deviantProfile: db.collection('search').distinct("profile"),
+            devinatImage: db.collection('search').distinct("image")
+        });
+    }
 });
 
 
