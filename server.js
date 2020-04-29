@@ -122,13 +122,11 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results', function (req, res) {
-    var showMore = false;
     db.collection('search').find().toArray(function (err, result) {
         if (err) throw err;
         res.render('pages/results', {
             currentUser: currentUser,
-            data: result,
-            showMoreButton : showMore
+            data: result
         });
     });
 });
