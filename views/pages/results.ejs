@@ -108,13 +108,13 @@
     <div id="loadBox"></div>
     <div id="searchResultsBox"></div> -->
     <div class="container">
-        <div class="row peach-gradient" style="display: flex; align-items: flex-start;">
+        <div class="row peach-gradient" style="display: flex; align-items: flex-start;" id = "mainResults">
 
             <%-include('../partials/resultBox') %>
         </div>
     </div>
 
-    <p style="text-align: -webkit-center;">
+    <p style="text-align: -webkit-center;" id = "showMoreButton">
         <button onclick = showMore() id = "signInButton" type="button" class="btn btn-round-lg btn-lg">Show More</button>
     </p>    
 </body>
