@@ -210,11 +210,13 @@ app.post('/results', function (req, res) {
             request({
                 url: 'https://www.deviantart.com/api/v1/oauth2/browse/popular',
                 method: "GET",
+                auth : {
+                    'access_token' : accessToken
+                },
                 form: {
                     'category_path' : 'digitalart/paintings',
                     'q' : searchItem,
                     'timerange' : '1month',
-                    'access_token' : accessToken
                 }
             },function(err,res) {
                 if(err) reject(err);
