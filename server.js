@@ -168,11 +168,7 @@ app.post('/results', function (req, res) {
         };
     };
 
-    const printToPage = async _ => {
-        await addToDatabase()
-    }
-
-    printToPage().then(renderResults())
+    addToDatabase().then(renderResults());
 
     function renderResults() {
         res.redirect('/results');
