@@ -148,7 +148,9 @@ app.post('/results', function (req, res) {
 
     const addToDatabase = async _ => {
         const result = await deviantSearch()
-        db.collection('search').drop();
+        db.collection('search').drop(function(err,delOk){
+            if (err) throw err;
+        })
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
