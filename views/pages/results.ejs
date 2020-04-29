@@ -113,6 +113,9 @@
             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 border border-dark rounded">
                 <h3 id="Artist" class=" d-flex justify-content-center" style="margin-bottom: 20px;">
                     <%= data[i].user.username %></h3>
+                <ul class="social-network social-circle d-flex justify-content-center">
+                    <li><a href="<%=data[i].profile %>" class="icoDeviant" title="DeviantArt"><i class="fa fa-deviantart"></i></a></li>
+                </ul>
             </div>
             <% if (i % 2 != 0) { %>
             <div class="col-lg-2 col-md-2"></div>
