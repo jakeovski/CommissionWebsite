@@ -5,12 +5,13 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const deviantnode = require('deviantnode');
+var request = require('request');
 const app = express();
 
 
 var clientid = '12052';
 var clientSecret = '13ae1cb7fdfb9753668db6e2310c9323';
-var output = "";
+
 //Using sessions
 app.use(session({ secret: 'example' }));
 
@@ -133,46 +134,61 @@ app.get('/results',function(req,res) {
 
 //---------------Post Routes Section----------------------------
 app.post('/results', function (req, res) {
-
     //Search Item entered by user with added commission filter
-    var searchItem = req.body.searchBar + " commission";
+//     var searchItem = req.body.searchBar + " commission";
 
 
-    let deviantSearch = function () {
-        return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
-    }
+//     let deviantSearch = function () {
+//         return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
+//     }
 
-    deviantSearch().then(result => {
-        return result;
-    })
+//     deviantSearch().then(result => {
+//         return result;
+//     })
 
-    var getResponse = async _ => {
-        db.collection('search').drop();
-        var result = await deviantSearch();
-        return result;
-    }
+//     var getResponse = async _ => {
+//         db.collection('search').drop();
+//         var result = await deviantSearch();
+//         return result;
+//     }
     
-    var addToDatabase = async _ => {
-        var result = await getResponse();
-        for (var i = 0; i < result.results.length; i++) {
-            var datatostore = {
-                "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-                "profile": result.results[i].url,
-                "image": result.results[i].thumbs[1].src
-            }
+//     var addToDatabase = async _ => {
+//         var result = await getResponse();
+//         for (var i = 0; i < result.results.length; i++) {
+//             var datatostore = {
+//                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
+//                 "profile": result.results[i].url,
+//                 "image": result.results[i].thumbs[1].src
+//             }
 
-            db.collection('search').save(datatostore, function (err, result) {
-                if (err) throw err;
-                console.log("Saved to database");
-            })
-        };
-    };
+//             db.collection('search').save(datatostore, function (err, result) {
+//                 if (err) throw err;
+//                 console.log("Saved to database");
+//             })
+//         };
+//     };
 
-    addToDatabase().then(renderResults());
+//     addToDatabase().then(renderResults());
 
-    function renderResults() {
-        res.redirect('/results');
-    };
+//     function renderResults() {
+//         res.redirect('/results');
+//     };
+
+    request({
+        url : 'https://www.deviantart.com/oauth2/token',
+        method: 'POST',
+        auth: {
+            client_id : clientid,
+            client_secret : clientSecret
+        },
+        form: {
+            'grant_type' : 'client_credentials'
+        }
+    }, function(err,res) {
+            if(err) throw err;
+            var json = JSON.parse(res.body);
+            console.log("Access Token: ", json.access_token);
+    });
 });
 
 
