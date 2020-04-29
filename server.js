@@ -38,8 +38,6 @@ var db;
 //CurrentUser
 var currentUser;
 
-//SearchBox Counter
-var count = 0;
 
 //Connection to mongo db
 MongoClient.connect(url, function (err, database) {
@@ -134,7 +132,6 @@ app.get('/results',function(req,res) {
         res.render('pages/results', {
             currentUser : currentUser,
             data : result,
-            i : count
         });
     });
 });
