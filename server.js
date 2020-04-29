@@ -33,6 +33,8 @@ var db;
 var currentUser;
 
 
+
+
 //Connection to mongo db
 MongoClient.connect(url, function (err, database) {
     if (err) throw err;
@@ -129,6 +131,11 @@ app.get('/results', function (req, res) {
     });
 });
 
+app.get('/search',function(req,res) {
+    var data = req.query.data;
+    var searchItem = req.query.searchItem;
+    res.send(data);
+})
 
 
 
@@ -174,6 +181,9 @@ app.post('/results', function (req, res) {
     //         res.redirect('/results');
     //     };
     var searchItem = req.body.searchBar + " commission";
+
+    sendToEdit();
+
     function oAuth2() {
 
         var accessToken;
@@ -225,10 +235,20 @@ app.post('/results', function (req, res) {
 
     async function getData() {
         var data = await connectToDeviantArt();
-        console.log(data);
+        return data;
     }
 
-    getData();
+    async function sendToEdit() {
+        var data = await getData();
+        res.redirect(url.format({
+            pathname : "/search",
+            query : {
+                "data" : data,
+                "searchItem" : searchItem
+            }
+        }));
+    }
+
 });
 
 
