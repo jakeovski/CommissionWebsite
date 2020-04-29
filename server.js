@@ -188,7 +188,9 @@ app.post('/results', function (req, res) {
             console.log("Access Token: ", json.access_token);
             var accessToken = json.access_token;
             return accessToken;
-    }).then(console.log("Yo"));
+    });
+
+    console.log(accessToken);
 
 });
 
