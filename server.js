@@ -230,7 +230,6 @@ app.post('/results', function (req, res) {
     }
 
     getData();
-
 });
 
 
