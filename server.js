@@ -241,12 +241,11 @@ app.post('/results', function (req, res) {
         db.collection('search').drop(function(err,delOK) {
             if(err) {
                 console.log("Database was empty => continue");
-                continue;
             }
             
         });
     }
-    
+
     async function addToCollection() {
         await EraseDatabase();
         var data = await getData();
