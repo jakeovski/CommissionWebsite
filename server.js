@@ -202,25 +202,22 @@ app.post('/results', function (req, res) {
         return accessToken;
     }
 
+                   // auth : {
+                //     'access_token' : accessToken
+                // },
+                // form: {
+                //     'category_path' : 'digitalart/paintings',
+                //     'q' : searchItem,
+                //     'timerange' : '1month',
+                // }
     async function connectToDeviantArt() {
         var accessToken = await getAccessToken();
 
         return new Promise(function(resolve, reject) {
 
-            request({
-                url: 'https://www.deviantart.com/api/v1/oauth2/browse/popular',
-                method: "GET",
-                auth : {
-                    'access_token' : accessToken
-                },
-                form: {
-                    'category_path' : 'digitalart/paintings',
-                    'q' : searchItem,
-                    'timerange' : '1month',
-                }
-            },function(err,res) {
+            request('https://www.deviantart.com/api/v1/oauth2/browse/popular?category_path=digitalart%2Fpaintings&q=' + searchItem + '&timerange=1month&access_token=' + accessToken,function(err,res,body) {
                 if(err) reject(err);
-                var json = JSON.parse(res.body);
+                var json = JSON.parse(body);
                 resolve(json);
             });
         });
