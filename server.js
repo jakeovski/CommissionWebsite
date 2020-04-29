@@ -177,12 +177,10 @@ app.post('/results', function (req, res) {
     request({
         url : 'https://www.deviantart.com/oauth2/token',
         method: 'POST',
-        auth: {
-            client_id : '12052',
-            client_secret : '13ae1cb7fdfb9753668db6e2310c9323'
-        },
         form: {
-            'grant_type' : 'client_credentials'
+            'grant_type' : 'client_credentials',
+            'client_id' : '12052',
+            'client_secret' : '13ae1cb7fdfb9753668db6e2310c9323'
         }
     }, function(err,res) {
             if(err) throw err;
