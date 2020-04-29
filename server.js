@@ -148,10 +148,7 @@ app.post('/results', function (req, res) {
     })
 
     const addToDatabase = async _ => {
-        db.collection('search').drop(function(err,delOk){
-            if (err) throw err;
-            if(delOk) console.log("Collection Erased");
-        });
+        db.collection('search').drop();
         const result = await deviantSearch()
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
