@@ -10624,6 +10624,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+/*-----------------------------------------------------------------------------------*/
+
 /* Profile Page Special CSS */
 .profile-page .page-header {
   height: 380px;
@@ -10817,7 +10819,7 @@ img.rounded {
   color: #999;
 }
 
-/* Index Page Buttons */
+/* Index Page Buttons -----------------------------------*/
 #signInButton {
   color:black !important;
   background-color: #e0782e !important;
@@ -10826,6 +10828,11 @@ img.rounded {
 #signInButton:hover {
   color:black !important;
   background-color: #f4d74b !important;
+}
+
+/*---------------------------ResultBox------------------------------*/
+#result {
+  background-image: linear-gradient(-90deg, #e0782e, #f4d74b);
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
