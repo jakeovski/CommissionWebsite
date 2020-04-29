@@ -131,12 +131,6 @@ app.get('/results', function (req, res) {
     });
 });
 
-app.get('/search', function (req, res) {
-    // var data = req.query.data;
-    // var searchItem = req.query.searchItem;
-    // res.send(data);
-})
-
 
 
 //---------------Post Routes Section----------------------------
@@ -265,7 +259,7 @@ app.post('/results', function (req, res) {
 
     async function sendToPage() {
         await addToCollection();
-        res.redirect('/search');
+        res.redirect('/results');
     }
 
     
