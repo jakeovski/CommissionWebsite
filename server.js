@@ -240,13 +240,10 @@ app.post('/results', function (req, res) {
 
     async function sendToEdit() {
         var data = await getData();
-        res.redirect(url.format({
-            pathname : "/search",
-            query : {
-                "data" : data,
-                "searchItem" : searchItem
-            }
-        }));
+        res.redirect('/search', {
+            "data" : data,
+            "searchItem" : searchItem
+        });
     }
 
 });
