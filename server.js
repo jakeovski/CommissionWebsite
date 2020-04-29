@@ -121,10 +121,9 @@ app.get('/delete', function (req, res) {
 app.get('/results',function(req,res) {
     db.collection('search').find().toArray(function(err,result) {
         if (err) throw err;
-        var array = result;
         res.render('pages/results', {
             currentUser : currentUser,
-            data : array
+            data : result
         });
     });
 });
@@ -147,9 +146,14 @@ app.post('/results', function (req, res) {
         return result;
     })
 
-    const addToDatabase = async _ => {
+    var getResponse = async _ => {
         db.collection('search').drop();
-        const result = await deviantSearch()
+        var result = await deviantSearch();
+        return result;
+    }
+    
+    var addToDatabase = async _ => {
+        var result = await getResponse();
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
@@ -162,7 +166,7 @@ app.post('/results', function (req, res) {
                 console.log("Saved to database");
             })
         };
-    }
+    };
 
     const printToPage = async _ => {
         await addToDatabase()
