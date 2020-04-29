@@ -132,9 +132,9 @@ app.get('/results', function (req, res) {
 });
 
 app.get('/search',function(req,res) {
-    var data = req.query.data;
-    var searchItem = req.query.searchItem;
-    res.send(data);
+    // var data = req.query.data;
+    // var searchItem = req.query.searchItem;
+    // res.send(data);
 })
 
 
@@ -240,10 +240,7 @@ app.post('/results', function (req, res) {
 
     async function sendToEdit() {
         var data = await getData();
-        res.redirect('/search', {
-            "data" : data,
-            "searchItem" : searchItem
-        });
+        res.redirect('/search');
     }
 
 });
