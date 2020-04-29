@@ -5,7 +5,6 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const deviantnode = require('deviantnode');
-const cors = require('cors');
 const app = express();
 
 
@@ -15,13 +14,7 @@ var output = "";
 //Using sessions
 app.use(session({ secret: 'example' }));
 
-app.use(cors({
-    'allowedHeaders': ['sessionId', 'Content-Type'],
-    'exposedHeaders': ['sessionId'],
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-}));
+
 
 
 //Using body Parser
@@ -155,7 +148,7 @@ app.post('/results', function (req, res) {
 
     const addToDatabase = async _ => {
         const result = await deviantSearch()
-        console.log("Collection pre-cleaning complete: " + db.collection('search').drop());
+        db.collection('search').drop();
         for (var i = 0; i < result.results.length; i++) {
             var datatostore = {
                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
