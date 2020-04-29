@@ -131,7 +131,7 @@ app.get('/results', function (req, res) {
     });
 });
 
-app.get('/search',function(req,res) {
+app.get('/search', function (req, res) {
     // var data = req.query.data;
     // var searchItem = req.query.searchItem;
     // res.send(data);
@@ -181,8 +181,7 @@ app.post('/results', function (req, res) {
     //         res.redirect('/results');
     //     };
     var searchItem = req.body.searchBar + " commission";
-
-    sendToEdit();
+    sendToPage();
 
     function oAuth2() {
 
@@ -198,7 +197,7 @@ app.post('/results', function (req, res) {
                     'client_secret': '13ae1cb7fdfb9753668db6e2310c9323'
                 }
             }, function (err, res) {
-                if (err) reject (err);
+                if (err) reject(err);
                 var json = JSON.parse(res.body);
                 //console.log("Access Token: ", json.access_token);
                 accessToken = json.access_token;
@@ -212,21 +211,21 @@ app.post('/results', function (req, res) {
         return accessToken;
     }
 
-                   // auth : {
-                //     'access_token' : accessToken
-                // },
-                // form: {
-                //     'category_path' : 'digitalart/paintings',
-                //     'q' : searchItem,
-                //     'timerange' : '1month',
-                // }
+    // auth : {
+    //     'access_token' : accessToken
+    // },
+    // form: {
+    //     'category_path' : 'digitalart/paintings',
+    //     'q' : searchItem,
+    //     'timerange' : '1month',
+    // }
     async function connectToDeviantArt() {
         var accessToken = await getAccessToken();
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
 
-            request('https://www.deviantart.com/api/v1/oauth2/browse/popular?category_path=digitalart%2Fpaintings&q=' + searchItem + '&timerange=1month&access_token=' + accessToken,function(err,res,body) {
-                if(err) reject(err);
+            request('https://www.deviantart.com/api/v1/oauth2/browse/popular?category_path=digitalart%2Fpaintings&q=' + searchItem + '&timerange=1month&access_token=' + accessToken, function (err, res, body) {
+                if (err) reject(err);
                 var json = JSON.parse(body);
                 resolve(json);
             });
@@ -238,8 +237,25 @@ app.post('/results', function (req, res) {
         return data;
     }
 
-    async function sendToEdit() {
+    async function addToCollection() {
+        await db.collection('search').drop();
         var data = await getData();
+        for (var i = 0; i < data.results.length; i++) {
+            var datatostore = {
+                "user": { "username": data.results[i].author.username, "userIcon": data.results[i].author.usericon },
+                "profile": data.results[i].url,
+                "image": data.results[i].thumbs[1].src
+            }
+
+            db.collection('search').save(datatostore, function (err, result) {
+                if (err) throw err;
+                console.log("Saved to database");
+            })
+        };
+    }
+
+    async function sendToPage() {
+        await addToCollection();
         res.redirect('/search');
     }
 
