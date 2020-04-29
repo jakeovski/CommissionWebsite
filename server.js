@@ -125,6 +125,7 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results',function(req,res) {
+    console.log(db.collection('search'));
     res.render('pages/results', {
         currentUser : currentUser
     });
