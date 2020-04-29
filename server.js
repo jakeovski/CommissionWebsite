@@ -188,8 +188,8 @@ app.post('/results', function (req, res) {
             console.log("Access Token: ", json.access_token);
             var accessToken = json.access_token;
             return accessToken;
-    });
-    console.log("Yo");
+    }).then(console.log("Yo"));
+
 });
 
 
