@@ -237,8 +237,18 @@ app.post('/results', function (req, res) {
         return data;
     }
 
+    function EraseDatabase() {
+        db.collection('search').drop(function(err,delOK) {
+            if(err) {
+                console.log("Database was empty => continue");
+                continue;
+            }
+            
+        });
+    }
+    
     async function addToCollection() {
-        await db.collection('search').drop();
+        await EraseDatabase();
         var data = await getData();
         for (var i = 0; i < data.results.length; i++) {
             var datatostore = {
@@ -259,6 +269,7 @@ app.post('/results', function (req, res) {
         res.redirect('/search');
     }
 
+    
 });
 
 
