@@ -121,10 +121,10 @@ app.get('/delete', function (req, res) {
 app.get('/results',function(req,res) {
     db.collection('search').find().toArray(function(err,result) {
         if (err) throw err;
-
+        var array = result;
         res.render('pages/results', {
             currentUser : currentUser,
-            data : result,
+            data : array
         });
     });
 });
