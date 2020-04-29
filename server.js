@@ -125,7 +125,7 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results',function(req,res) {
-    res.render('/pages/results');
+    res.render('pages/results');
 });
 
 
