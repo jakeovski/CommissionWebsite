@@ -131,61 +131,80 @@ app.get('/results', function (req, res) {
     });
 });
 
-app.get('/addFavorite', function(req,res) {
+app.get('/addFavorite', function (req, res) {
     var link = req.query.profile;
     var thumb = req.query.image;
 
     db.collection('people').update(
-        {"login.username" : currentUser},
-        {$push: {"favorite":{"profile":link,"image":thumb}}}
+        { "login.username": currentUser },
+        { $push: { "favorite": { "profile": link, "image": thumb } } }
     )
     alert("Added to your Favorite!");
     res.redirect('results');
 });
 
 
+app.get('/userProfile', function (req, res) {
+    var uname = req.query.user
+
+    function oAuth2() {
+
+        var accesToken;
+        return new Promise(function (resolve, reject) {
+
+            request({
+                url: 'https://www.deviantart.com/oauth2/token',
+                method: 'POST',
+                form: {
+                    'grant_type': 'client_credentials',
+                    'client_id': '12052',
+                    'client_secret': '13ae1cb7fdfb9753668db6e2310c9323'
+                }
+            }, function (err, res) {
+                if (err) reject(err);
+                var json = JSON.parse(res.body);
+                accesToken = json.access_token;
+                resolve(accesToken);
+            });
+        });
+    }
+
+    async function getAccessToken() {
+        var accessToken = await oAuth2();
+        return accessToken;
+    }
+
+    async function connectToDeviantArt() {
+        var accessToken = await getAccessToken();
+
+        return new Promise(function(resolve,reject) {
+
+            request('https://www.deviantart.com/api/v1/oauth2/user/profile/' + uname+'?ext_collections=false&ext_galleries=true&access_token=' + accessToken, function(err,res,body) {
+                if (err) reject(err);
+                var json = JSON.parse(body);
+                resolve(json);
+            });
+        });
+    }
+
+    async function getData() {
+        var data = await connectToDeviantArt();
+        return data;
+    }
+
+    async function getFolderId() {
+        var data = await getData();
+        var folderId = data.galleries[0].folderid;
+        console.log(folderId);
+    }
+
+
+})
+
+
 
 //---------------Post Routes Section----------------------------
 app.post('/results', function (req, res) {
-    //Search Item entered by user with added commission filter
-    //     var searchItem = req.body.searchBar + " commission";
-
-
-    //     let deviantSearch = function () {
-    //         return deviantnode.getPopularDeviations(clientid, clientSecret, { category: "digitalart/paintings", q: searchItem, time: "alltime" })
-    //     }
-
-    //     deviantSearch().then(result => {
-    //         return result;
-    //     })
-
-    //     var getResponse = async _ => {
-    //         db.collection('search').drop();
-    //         var result = await deviantSearch();
-    //         return result;
-    //     }
-
-    //     var addToDatabase = async _ => {
-    //         var result = await getResponse();
-    //         for (var i = 0; i < result.results.length; i++) {
-    //             var datatostore = {
-    //                 "user": { "username": result.results[i].author.username, "userIcon": result.results[i].author.usericon },
-    //                 "profile": result.results[i].url,
-    //                 "image": result.results[i].thumbs[1].src
-    //             }
-
-    //             db.collection('search').save(datatostore, function (err, result) {
-    //                 if (err) throw err;
-    //                 console.log("Saved to database");
-    //             })
-    //         };
-    //     };
-
-    //     addToDatabase().then(renderResults());
-
-    //     function renderResults() {
-    //         res.redirect('/results');
-    //     };
     var searchItem = req.body.searchBar + " commission";
     sendToPage();
 
@@ -217,14 +236,6 @@ app.post('/results', function (req, res) {
         return accessToken;
     }
 
-    // auth : {
-    //     'access_token' : accessToken
-    // },
-    // form: {
-    //     'category_path' : 'digitalart/paintings',
-    //     'q' : searchItem,
-    //     'timerange' : '1month',
-    // }
     async function connectToDeviantArt() {
         var accessToken = await getAccessToken();
 
@@ -244,11 +255,11 @@ app.post('/results', function (req, res) {
     }
 
     function EraseDatabase() {
-        db.collection('search').drop(function(err,delOK) {
-            if(err) {
+        db.collection('search').drop(function (err, delOK) {
+            if (err) {
                 console.log("Database was empty => continue");
             }
-            
+
         });
     }
 
@@ -274,7 +285,7 @@ app.post('/results', function (req, res) {
         res.redirect('/results');
     }
 
-    
+
 });
 
 
@@ -307,7 +318,7 @@ app.post('/register', function (req, res) {
         "name": req.body.fullname,
         "login": { "username": req.body.username, "password": req.body.password },
         "email": req.body.email,
-        "favorite":[]
+        "favorite": []
     }
 
     //Adding it to the database
