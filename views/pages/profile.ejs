@@ -57,7 +57,7 @@
                         <!-- For Two -->
                         <% if (user.favorite != [null]) { %>
                         <% user.favorite.forEach(function(entry) {%>
-                        <div class="col-md-4 border">
+                        <div class="col-md-4 border border-warning rounded" style = "margin: auto;">
                             <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>"></a>
                         </div>
                         <% }); %>
