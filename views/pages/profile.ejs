@@ -2,77 +2,81 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <%- include('../partials/head') %>
-    </head>
 
-    <body class = "profile-page" style="background-color: #e0782e !important;">
-        <!-- Header -->
-        <header>
-            <%- include('../partials/header2') %>
-        </header>
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="profile-page" style="background-color: #e0782e !important;">
+    <!-- Header -->
+    <header>
+        <%- include('../partials/header2') %>
+    </header>
     <div class="main main-raised">
-		<div class="profile-content">
+        <div class="profile-content">
             <div class="container">
                 <div class="row">
-	                <div class="col-md-6 ml-auto mr-auto">
-        	           <div class="profile">
-	                        <div class="avatar">
-	                            <img src="Images/bannerAndLogo/large.png" alt="Profile Picture" class="img-raised rounded-circle img-fluid" style="background-color: #f4d74b;">
-	                        </div>
-	                        <div class="name">
-	                            <h3 class="title"><%= user.name %></h3>
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+                            <div class="avatar">
+                                <img src="Images/bannerAndLogo/large.png" alt="Profile Picture"
+                                    class="img-raised rounded-circle img-fluid" style="background-color: #f4d74b;">
+                            </div>
+                            <div class="name">
+                                <h3 class="title"><%= user.name %></h3>
                                 <h6><%= user.login.username %></h6>
                                 <div class="description text-center">
                                     <p><%= user.email %></p>
                                 </div>
-                                <div class ="description text-center">
-                                    <p><a href = "/delete" style = "color: #e0782e;">Delete Account</a></p>
+                                <div class="description text-center">
+                                    <p><a href="/delete" style="color: #e0782e;">Delete Account</a></p>
                                 </div>
-	                        </div>
-	                    </div>
-    	            </div>
-                </div>
-				<div class="row">
-					<div class="col-md-6 ml-auto mr-auto">
-                        <div class="profile-tabs">
-                          <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                            <li class="nav-item">
-                                <!-- When this button is going to be pressed it is going to open favorite id div -->
-                                <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
-                                  <i class="material-icons">favourite</i>
-                                    Favourite
-                                </a>
-                            </li>
-                          </ul>
+                            </div>
                         </div>
-    	    	</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile-tabs">
+                            <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                                <li class="nav-item">
+                                    <!-- When this button is going to be pressed it is going to open favorite id div -->
+                                    <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                        <i class="material-icons">favourite</i>
+                                        Favourite
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
+                <div class="tab-pane text-center gallery" id="favorite">
+                    <div class="row">
+                        <div class="col-md-3 ml-auto">
+                            <!-- For Two -->
+                            <%for (int i = 0; i < user.favorite.length; i++) {%>
+                                <%if (user.favorite[i] == null) {%>
+                                    <%break;%>
+                                <%}%>
+                            <a href='<%=user.favorite[i].profile%>'><img src='<%=user.favorite[i].image%>'
+                                    class="rounded"></a>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
-            <div class="tab-pane text-center gallery" id="favorite">
-      			<div class="row">
-      				<div class="col-md-3 ml-auto">
-                    <!-- For Two -->
-                    <% user.favorite.forEach(function(entry) { %>
-                        <% if(entry == null) {%>
-                            <%break;%>
-                        <%}%>
-                        <a href = '<%=entry.profile%>'><img src = '<%=entry.image%>' class = "rounded"></a>
-                    <%})%>
-      				</div>
-      			</div>
-      		</div>
-          </div>
 
-        
-            </div>
         </div>
+    </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer" style="position:fixed;">
         <%- include('../partials/footer') %>
-    </footer>
-    </body>
+                            </footer>
+</body>
+
 </html>
