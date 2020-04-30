@@ -53,9 +53,14 @@
             <div class="tab-pane text-center gallery" id="favorite">
       			<div class="row">
       				<div class="col-md-3 ml-auto">
+                    <!-- For Two -->
+                    <% user.favorite.forEach(function(entry) { %>
+                        <% if(entry == null) {%>
+                            <%break;%>
+                        <%}%>
+                        <a href = '<%=entry.profile%>'><img src = '<%=entry.image%>' class = "rounded"></a>
+                    <%})%>
       				</div>
-      				<div class="col-md-3 mr-auto">
-      			    </div>
       			</div>
       		</div>
           </div>
