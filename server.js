@@ -4,8 +4,8 @@ const url = "mongodb://localhost:27017/exposure";
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const deviantnode = require('deviantnode');
 var request = require('request');
+var alert = require('alert');
 const app = express();
 
 
@@ -139,7 +139,8 @@ app.get('/addFavorite', function(req,res) {
         {"login.username" : currentUser},
         {$push: {"favorite":{"profile":link,"image":thumb}}}
     )
-
+    alert("Added to your Favorite!");
+    res.redirect('results');
 });
 
 
