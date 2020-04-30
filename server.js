@@ -145,7 +145,23 @@ app.get('/addFavorite', function (req, res) {
 
 
 app.get('/userProfile', function (req, res) {
-    var uname = req.query.user
+   
+    var uname = req.query.user;
+    var icon = req.query.icon;
+    var tagline = getTagline();
+    var country = getCountry();
+    var profile = getProfile();
+    var featured = getImages();
+    res.render('pages/userProfile', {
+        username : uname,
+        icon : icon,
+        tagline : tagline,
+        country : country,
+        link : profile,
+        featured : featured,
+        currentUser : currentUser
+    })
+
 
     function oAuth2() {
 
@@ -198,6 +214,22 @@ app.get('/userProfile', function (req, res) {
         return folderId;
     }
 
+    async function getUrl() {
+        var data = await getData();
+        var url = data.profile_url;
+        return url;
+    }
+
+    async function getCountry() {
+        var data = await getData();
+        var country = data.country;
+    }
+
+    async function getTagline() {
+        var data = await getData();
+        var tagline = data.tagline;
+    }
+
     async function connectToGallery() {
         var folderId = await getFolderId();
         var accessToken = await getAccessToken();
@@ -223,9 +255,9 @@ app.get('/userProfile', function (req, res) {
         for (var i = 0; i < 5; i++) {
             featured.push(gallery.results[i].thumbs[1].src);
         }
-        console.log(featured);
+        return featured;
     }
-    getImages();
+    
 })
 
 

@@ -1,0 +1,67 @@
+<!-- Profie Page for the user -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="profile-page" style="background-color: #e0782e !important;">
+    <!-- Header -->
+    <header>
+        <%- include('../partials/header2') %>
+    </header>
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+                            <div class="avatar">
+                                <img src="<%=icon%>" alt="Profile Picture" class="img-raised rounded-circle img-fluid"
+                                    style="background-color: #f4d74b;">
+                            </div>
+                            <div class="name">
+                                <h3 class="title"><%= username %></h3>
+                                <h6><%= tagline %></h6>
+                                <div class="description text-center">
+                                    <p><%= country %></p>
+                                </div>
+                                <div class="description text-center">
+                                    <p><a href="/delete" style="color: #e0782e;">Delete Account</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
+                <div class="tab-pane text-center gallery">
+                    <div class="row border border-dark">
+                        <!-- For Two -->
+                        <div class="col-md-3 ml-auto">
+                            <img src="<%=featured[0]%>" class="rounded">
+                            <img src="<%=featured[1]%>" class="rounded">
+                        </div>
+                        <div class="col-md-3 mr-auto">
+                            <img src= "<%=featured[2]%>" class="rounded">  					
+                            <img src="<%=featured[3]%>" class="rounded">
+                            <img src="<%=featured[4]%>" class="rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="position:fixed;">
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>
