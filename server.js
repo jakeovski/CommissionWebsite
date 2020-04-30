@@ -148,20 +148,8 @@ app.get('/userProfile', function (req, res) {
    
     var uname = req.query.user;
     var icon = req.query.icon;
-    var tagline = getTagline();
-    var country = getCountry();
-    var profile = getUrl();
-    var featured = getImages();
-    res.render('pages/userProfile', {
-        username : uname,
-        icon : icon,
-        tagline : tagline,
-        country : country,
-        link : profile,
-        featured : featured,
-        currentUser : currentUser
-    })
 
+    getProfie();
 
     function oAuth2() {
 
@@ -258,6 +246,21 @@ app.get('/userProfile', function (req, res) {
         return featured;
     }
     
+    async function getProfie(){
+        var tagline = await getTagline();
+        var country = await getCountry();
+        var profile = await getUrl();
+        var featured = await getImages();
+        res.render('pages/userProfile', {
+            username : uname,
+            icon : icon,
+            tagline : tagline,
+            country : country,
+            link : profile,
+            featured : featured,
+            currentUser : currentUser
+        });
+    }
 })
 
 
