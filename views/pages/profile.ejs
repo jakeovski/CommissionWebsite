@@ -53,12 +53,12 @@
 
                 <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
                 <div class="tab-pane text-center gallery">
-                    <div class="row" id = "show" style="display:none;">
+                    <div class="row border border-dark" id = "show" style="display:none;background-color: #e0782e;">
                         <!-- For Two -->
                         <% if (user.favorite != [null]) { %>
                         <% user.favorite.forEach(function(entry) {%>
                         <div class="col-md-4" style = "margin: auto;">
-                            <a href="<%=entry.profile%>"><img class="border border-warning rounded" src="<%=entry.image%>"></a>
+                            <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>"></a>
                         </div>
                         <% }); %>
                         <% } %>
