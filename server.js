@@ -214,10 +214,18 @@ app.get('/userProfile', function (req, res) {
 
     async function getGallery(){
         var data = await connectToGallery();
-        console.log(data);
+        return data;
     }
-    getGallery();
 
+    async function getImages() {
+        var gallery = await getGallery();
+        var featured = [];
+        for (var i = 0; i < 5; i++) {
+            featured.push(gallery.results[i].thumbs[1].src);
+        }
+        console.log(featured);
+    }
+    getImages();
 })
 
 
