@@ -191,15 +191,31 @@ app.get('/userProfile', function (req, res) {
         var data = await connectToDeviantArt();
         return data;
     }
-    getData();
 
     async function getFolderId() {
         var data = await getData();
         var folderId = data.galleries[0].folderid;
-        console.log(folderId);
+        return folderId;
     }
-    getFolderId();
 
+    async function connectToGallery() {
+        var folderId = await getFolderId();
+
+        return new Promise(function(resolve, reject) {
+
+            request('https://www.deviantart.com/api/v1/oauth2/gallery/'+folderId+'?username='+uname+'&mode=popular&mature_content=true', function(err,res,body) {
+                if(err) reject(err);
+                var json = JSON.parse(body);
+                resolve(json);
+            });
+        });
+    }
+
+    async function getGallery(){
+        var data = await connectToGallery();
+        console.log(data);
+    }
+    getGallery();
 
 })
 
