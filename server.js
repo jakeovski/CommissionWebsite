@@ -189,16 +189,16 @@ app.get('/userProfile', function (req, res) {
 
     async function getData() {
         var data = await connectToDeviantArt();
-        console.log(data);
+        return data;
     }
     getData();
 
-    // async function getFolderId() {
-    //     var data = await getData();
-    //     var folderId = data.galleries[0].folderid;
-    //     res.send(folderId);
-    // }
-    // getFolderId();
+    async function getFolderId() {
+        var data = await getData();
+        var folderId = data.galleries[0].folderid;
+        console.log(folderId);
+    }
+    getFolderId();
 
 
 })
