@@ -179,7 +179,7 @@ app.get('/userProfile', function (req, res) {
 
         return new Promise(function(resolve,reject) {
 
-            request('https://www.deviantart.com/api/v1/oauth2/user/profile/' + uname+'?ext_collections=false&ext_galleries=true&access_token=' + accessToken, function(err,res,body) {
+            request('https://www.deviantart.com/api/v1/oauth2/user/profile/'+uname+'?ext_collections=false&ext_galleries=true&access_token=' + accessToken, function(err,res,body) {
                 if (err) reject(err);
                 var json = JSON.parse(body);
                 resolve(json);
