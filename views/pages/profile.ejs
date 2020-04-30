@@ -58,7 +58,7 @@
                             <!-- For Two -->
                             <% if (<%= user.favorite%> != [null]) { %>
                                 <% for (int i = 0; i < user.favorite.length; i++) { %>
-                                    <a href='<%=user.favorite[i].profile%>'><img src='<%=user.favorite[i].image%>' class="rounded"></a>
+                                    <a href="<%=user.favorite[i].profile%>"><img src="<%=user.favorite[i].image%>" class="rounded"></a>
                                 <% } %>
                             <% } %>
 
