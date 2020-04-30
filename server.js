@@ -200,10 +200,11 @@ app.get('/userProfile', function (req, res) {
 
     async function connectToGallery() {
         var folderId = await getFolderId();
+        var accessToken = await getAccessToken();
 
         return new Promise(function(resolve, reject) {
 
-            request('https://www.deviantart.com/api/v1/oauth2/gallery/'+folderId+'?username='+uname+'&mode=popular&mature_content=true', function(err,res,body) {
+            request('https://www.deviantart.com/api/v1/oauth2/gallery/'+folderId+'?username='+uname+'&mode=popular&mature_content=true&access_token='+accessToken, function(err,res,body) {
                 if(err) reject(err);
                 var json = JSON.parse(body);
                 resolve(json);
