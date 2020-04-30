@@ -183,11 +183,11 @@
   }
 
 
-  .social-network a.icoTwitter {
+  .social-network a.icoProfile {
     background-color: #00acee;
   }
 
-  .social-network a.icoTwitter:hover {
+  .social-network a.icoProfile:hover {
     background-color: #657786;
   }
 
@@ -200,13 +200,13 @@
   }
 
   .social-network a.icoFavorite i,
-  .social-network a.icoTwitter i,
+  .social-network a.icoProfile i,
   .social-network a.icoDeviant i {
   color: #fff;
 }
 
 .social-network a.icoFavorite:hover i,
-.social-network a.icoTwitter:hover i ,
+.social-network a.icoProfile:hover i ,
 .social-network a.icoDeviant:hover i{
 color: rgb(0, 0, 0);
 }
