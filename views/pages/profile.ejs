@@ -54,14 +54,14 @@
                 <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
                 <div class="tab-pane text-center gallery" id="favorite">
                     <div class="row">
-                        <div class="col-md-3 ml-auto">
-                            <!-- For Two -->
-                            <% if (user.favorite != [null]) { %>
-                                <% user.favorite.forEach(function(entry) {%>
-                                    <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>"></a>
-                                <% }); %>
-                            <% } %>
+                        <!-- For Two -->
+                        <% if (user.favorite != [null]) { %>
+                        <% user.favorite.forEach(function(entry) {%>
+                        <div class="col-md-4">
+                            <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>"></a>
                         </div>
+                        <% }); %>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
     <!-- Footer -->
     <footer class="footer" style="position:fixed;">
         <%- include('../partials/footer') %>
-                            </footer>
+    </footer>
 </body>
 
 </html>
