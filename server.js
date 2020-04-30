@@ -195,8 +195,9 @@ app.get('/userProfile', function (req, res) {
     async function getFolderId() {
         var data = await getData();
         var folderId = data.galleries[0].folderid;
-        console.log(folderId);
+        res.send(folderId);
     }
+    getFolderId();
 
 
 })
