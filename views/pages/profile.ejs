@@ -41,7 +41,7 @@
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
                                     <!-- When this button is going to be pressed it is going to open favorite id div -->
-                                    <a class="nav-link" href = "#" onclick =showFavorites() role="tab" data-toggle="tab">
+                                    <a class="nav-link" href = "#show" onclick =showFavorites() role="tab" data-toggle="tab">
                                         <i class="material-icons">favourite</i>
                                         Favourite
                                     </a>
@@ -58,7 +58,7 @@
                         <% if (user.favorite != [null]) { %>
                         <% user.favorite.forEach(function(entry) {%>
                         <div class="col-md-4" style = "margin: auto;">
-                            <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>"></a>
+                            <a href="<%=entry.profile%>"><img class="rounded" src="<%=entry.image%>" style="margin-top: 10px;"></a>
                         </div>
                         <% }); %>
                         <% } %>
