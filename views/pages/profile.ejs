@@ -41,10 +41,10 @@
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
                                     <!-- When this button is going to be pressed it is going to open favorite id div -->
-                                    <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                    <button onclick = showFavorites() role="tab" data-toggle="tab">
                                         <i class="material-icons">favourite</i>
                                         Favourite
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
-                <div class="tab-pane text-center gallery" id="favorite">
+                <div class="tab-pane text-center gallery" id = "show" style="display:none;">
                     <div class="row">
                         <!-- For Two -->
                         <% if (user.favorite != [null]) { %>
