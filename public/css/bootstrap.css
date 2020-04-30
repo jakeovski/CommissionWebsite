@@ -188,7 +188,7 @@
   }
 
   .social-network a.icoProfile:hover {
-    background-color: #657786;
+    background-color: rgb(219, 219, 219);
   }
 
   .social-network a.icoDeviant {
