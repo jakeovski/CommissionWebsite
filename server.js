@@ -135,6 +135,10 @@ app.get('/addFavorite', function(req,res) {
     var link = req.query.profile;
     var image = req.query.image;
 
+    db.collection('people').update(
+        {"login.username" : currentUser},
+        {$push: { "favorite": {"profile" : link,"image" : image}}}
+    )
 
 });
 
@@ -302,7 +306,7 @@ app.post('/register', function (req, res) {
         "name": req.body.fullname,
         "login": { "username": req.body.username, "password": req.body.password },
         "email": req.body.email,
-        "favorite": [""]
+        "favorite": []
     }
 
     //Adding it to the database
