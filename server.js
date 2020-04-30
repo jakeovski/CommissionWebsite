@@ -150,7 +150,7 @@ app.get('/userProfile', function (req, res) {
     var icon = req.query.icon;
     var tagline = getTagline();
     var country = getCountry();
-    var profile = getProfile();
+    var profile = getUrl();
     var featured = getImages();
     res.render('pages/userProfile', {
         username : uname,
