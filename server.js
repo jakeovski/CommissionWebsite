@@ -131,6 +131,13 @@ app.get('/results', function (req, res) {
     });
 });
 
+app.get('/addFavorite', function(req,res) {
+    var link = req.query.profile;
+    var image = req.query.image;
+
+
+});
+
 
 
 //---------------Post Routes Section----------------------------
@@ -294,7 +301,8 @@ app.post('/register', function (req, res) {
     var datatostore = {
         "name": req.body.fullname,
         "login": { "username": req.body.username, "password": req.body.password },
-        "email": req.body.email
+        "email": req.body.email,
+        "favorite": [""]
     }
 
     //Adding it to the database
