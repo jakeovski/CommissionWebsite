@@ -174,11 +174,11 @@
     margin: 0 5px;
   }
 
-  .social-network a.icoInstagram {
-    background-color: #3f729b;
+  .social-network a.icoFavorite {
+    background-color: black;
   }
 
-  .social-network a.icoInstagram:hover {
+  .social-network a.icoFavorite:hover {
     background-color: #fb3958;
   }
 
@@ -199,13 +199,13 @@
     background-color: #5EAC74;
   }
 
-  .social-network a.icoInstagram i,
+  .social-network a.icoFavorite i,
   .social-network a.icoTwitter i,
   .social-network a.icoDeviant i {
   color: #fff;
 }
 
-.social-network a.icoInstagram:hover i,
+.social-network a.icoFavorite:hover i,
 .social-network a.icoTwitter:hover i ,
 .social-network a.icoDeviant:hover i{
 color: rgb(0, 0, 0);
