@@ -211,11 +211,13 @@ app.get('/userProfile', function (req, res) {
     async function getCountry() {
         var data = await getData();
         var country = data.country;
+        return country;
     }
 
     async function getTagline() {
         var data = await getData();
         var tagline = data.tagline;
+        return tagline;
     }
 
     async function connectToGallery() {
