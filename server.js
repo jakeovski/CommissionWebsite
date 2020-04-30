@@ -91,6 +91,7 @@ app.get('/logout', function (req, res) {
 
 //Porfile Route
 app.get('/profile', function (req, res) {
+    if (!req.session.loggedin) { res.redirect('/login'); return; }
     var uname = req.query.username;
 
     db.collection('people').findOne({
@@ -122,6 +123,7 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results', function (req, res) {
+    if (!req.session.loggedin) { res.redirect('/login'); return; }
     db.collection('search').find().toArray(function (err, result) {
         if (err) throw err;
         res.render('pages/results', {
@@ -132,6 +134,7 @@ app.get('/results', function (req, res) {
 });
 
 app.get('/addFavorite', function (req, res) {
+    if (!req.session.loggedin) { res.redirect('/login'); return; }
     var link = req.query.profile;
     var thumb = req.query.image;
 
@@ -145,7 +148,7 @@ app.get('/addFavorite', function (req, res) {
 
 
 app.get('/userProfile', function (req, res) {
-   
+    if (!req.session.loggedin) { res.redirect('/login'); return; }
     var uname = req.query.user;
     var icon = req.query.icon;
 
