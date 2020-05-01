@@ -124,6 +124,7 @@ app.get('/delete', function (req, res) {
     db.collection('people').deleteOne({ "login.username": uname }, function (err, result) {
         if (err) throw err;
         //when complete redirect to the index
+        req.session.loggedin = false;
         res.redirect('/');
     });
 });
