@@ -1,15 +1,20 @@
-<!-- Profie Page for the user -->
-
+<!-- Profie Page for the artist -->
+<!-- Created by Exposure Team
+---- Version 1/05/2020--->
 <!DOCTYPE html>
 <html>
+<!--Head-->
 
 <head>
+    <!--Import Head EJS Template-->
     <%- include('../partials/head') %>
 </head>
+<!--Body-->
 
 <body class="profile-page" style="background-color: #e0782e !important; height: auto;">
     <!-- Header -->
     <header>
+        <!--Import Header2 EJS Template-->
         <%- include('../partials/header2') %>
     </header>
     <div class="main main-raised">
@@ -37,7 +42,7 @@
                     </div>
                 </div>
 
-                <!-- This is the columns for the favorite pictures that are going to be added in the future when API is fully setup -->
+                <!--Artist Best drawings Gallery-->
                 <div class="tab-pane text-center gallery">
                     <div class="row">
                         <!-- For Two -->
@@ -61,8 +66,10 @@
 
     <!-- Footer -->
     <footer class="footer" style="position:relative;">
+        <!--Import Footer EJS Template-->
         <%- include('../partials/footer') %>
     </footer>
 </body>
 
 </html>
+<!------------------------------------------------------userProfile Page End------------------------------------------------->

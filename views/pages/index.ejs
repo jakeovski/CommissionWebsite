@@ -1,19 +1,25 @@
 <!-- Main Page for the non logged in user -->
+<!-- Created by Exposure Team
+---- Version 1/05/2020--->
 
 <!DOCTYPE html>
 <html lang="en">
+<!--Head-->
 
 <head>
+    <!--Import Head-->
     <%- include('../partials/head') %>
 </head>
+<!--Body-->
 
 <body>
     <!--Navigation Menu on top-->
     <header>
-         <%- include('../partials/header') %>
+        <!--Import Header-->
+        <%- include('../partials/header') %>
     </header>
 
-    <!--Carousel Start-->
+    <!--Image Carousel Start-->
     <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="6000"
         style="margin-bottom: 70px;">
         <ol class="carousel-indicators">
@@ -70,8 +76,8 @@
 
                     <div class="carousel-caption justify-content-center align-items-center">
                         <div>
-                            <h2>Contact them</h2>
-                            <p>Get in touch to offer them your work</p>
+                            <h2>Favorite</h2>
+                            <p>Add them to your Favorites</p>
                         </div>
                     </div>
                 </a>
@@ -93,11 +99,13 @@
     <!---Buttons-->
     <div class="container">
         <div class="container h-100">
-            <div class = "row" style = "margin-top: 20px">
-                <div class = "col-md-12">
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-12">
                     <p style="text-align: -webkit-center;">
-                        <button onclick = "window.location.href = '/login';" id = "signInButton" type="button" class="btn btn-round-lg btn-lg">Sign In</button>
-                        <button onclick = "window.location.href = '/register';" id = "signInButton" type="button" class="btn btn-round-lg btn-lg">Register</button>
+                        <button onclick="window.location.href = '/login';" id="signInButton" type="button"
+                            class="btn btn-round-lg btn-lg">Sign In</button>
+                        <button onclick="window.location.href = '/register';" id="signInButton" type="button"
+                            class="btn btn-round-lg btn-lg">Register</button>
                     </p>
                 </div>
             </div>
@@ -106,9 +114,12 @@
 
     <!--Footer-->
     <footer class="footer" style="position:fixed;">
+        <!--Import Footer Template-->
         <%- include('../partials/footer') %>
     </footer>
     <!--Footer End-->
 </body>
 
 </html>
+
+<!-----------------------------------------------------Index Page End-->

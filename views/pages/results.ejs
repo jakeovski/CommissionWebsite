@@ -1,15 +1,20 @@
-<!-- Main Page for the logged in user -->
-
+<!--Page for showing the search results to the user-->
+<!-- Created by Exposure Team
+---- Version 1/05/2020--->
 <!DOCTYPE html>
 <html>
+<!--Head-->
 
 <head>
+    <!--Import Head EJS Template-->
     <%- include('../partials/head') %>
 </head>
+<!--Body-->
 
 <body>
     <!-- Header -->
     <header>
+        <!--Import Header2 EJS Template-->
         <%-include('../partials/header2') %>
     </header>
 
@@ -70,8 +75,8 @@
 
                     <div class="carousel-caption justify-content-center align-items-center">
                         <div>
-                            <h2>Contact them</h2>
-                            <p>Get in touch to offer them your work</p>
+                            <h2>Favorite</h2>
+                            <p>Add them to your Favorites</p>
                         </div>
                     </div>
                 </a>
@@ -106,28 +111,34 @@
     <!-- Results -->
     <div class="container">
         <div class="row" style="display: flex; align-items: flex-start;" id="mainResults">
+            <!--For Each Result found print the result box-->
             <% data.forEach(function(entry) { %>
-                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 border border-dark rounded" style="margin: auto; margin-top: 20px;" id = "result">
-                    <img src="<%=entry.user.userIcon%>" class="d-flex justify-content-center img-raised rounded-circle" style="margin: auto;width: 100px;">
-                    <h3 id="Artist" class=" d-flex justify-content-center" style="margin-bottom: 10px; font-size: 40px;">
-                        <%= entry.user.username %></h3>
-                    <ul class="social-network social-circle d-flex justify-content-center">
-                        <li><a href="<%=entry.profile %>" class="icoDeviant" title="DeviantArt"><i class="fa fa-deviantart"></i></a>
-                        </li>
-                        <li><a href = '/addFavorite?profile=<%=entry.profile%>&image=<%=entry.image%>' class = "icoFavorite" title = "Favorite"><i class="fab fa-gratipay"></i></a></li>
-                        <li><a href = "/userProfile?user=<%=entry.user.username%>&icon=<%=entry.user.userIcon%>" class = "icoProfile" title = "Go to Profile"><i class="fas fa-user-circle"></i></a></li>
-                    </ul>
-                    <div class="container" style="margin-top: 40px;">
-                        <div class="row" style="display: flex; align-items: flex-end;">
-                
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <img class="img-fluid rounded mx-auto d-block img-thumbnail border-warning" src="<%=entry.image %>"
-                                    alt="Drawing example" id="myImg">
-                            </div>
-                
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 border border-dark rounded"
+                style="margin: auto; margin-top: 20px;" id="result">
+                <img src="<%=entry.user.userIcon%>" class="d-flex justify-content-center img-raised rounded-circle"
+                    style="margin: auto;width: 100px;">
+                <h3 id="Artist" class=" d-flex justify-content-center" style="margin-bottom: 10px; font-size: 40px;">
+                    <%= entry.user.username %></h3>
+                <ul class="social-network social-circle d-flex justify-content-center">
+                    <li><a href="<%=entry.profile %>" class="icoDeviant" title="DeviantArt"><i
+                                class="fa fa-deviantart"></i></a>
+                    </li>
+                    <li><a href='/addFavorite?profile=<%=entry.profile%>&image=<%=entry.image%>' class="icoFavorite"
+                            title="Favorite"><i class="fab fa-gratipay"></i></a></li>
+                    <li><a href="/userProfile?user=<%=entry.user.username%>&icon=<%=entry.user.userIcon%>"
+                            class="icoProfile" title="Go to Profile"><i class="fas fa-user-circle"></i></a></li>
+                </ul>
+                <div class="container" style="margin-top: 40px;">
+                    <div class="row" style="display: flex; align-items: flex-end;">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <img class="img-fluid rounded mx-auto d-block img-thumbnail border-warning"
+                                src="<%=entry.image %>" alt="Drawing example" id="myImg">
                         </div>
+
                     </div>
                 </div>
+            </div>
 
 
             <%} ); %>
@@ -137,3 +148,4 @@
 </body>
 
 </html>
+<!-----------------------------------------------------------Results Page End------------------------------------------------------>

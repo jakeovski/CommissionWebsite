@@ -1,21 +1,22 @@
+/*Created by Exposure Team
+---- Version 1/05/2020*/
+
 //Declaring variables
+//MongoDB
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/exposure";
+//Express
 const express = require('express');
 const session = require('express-session');
+//BodyParser
 const bodyParser = require('body-parser');
+//Request
 var request = require('request');
-var alert = require('alert');
 const app = express();
 
 
-var clientid = '12052';
-var clientSecret = '13ae1cb7fdfb9753668db6e2310c9323';
-
 //Using sessions
 app.use(session({ secret: 'example' }));
-
-
 
 
 //Using body Parser
@@ -29,7 +30,7 @@ app.set('view engine', 'ejs');
 //Database
 var db;
 
-//CurrentUser
+//CurrentUser stores currently logged in user username
 var currentUser;
 
 
@@ -48,7 +49,6 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-
 //---------------Get Routes Section ----------------------------
 //Index Page Route
 app.get('/', function (req, res) {
@@ -59,6 +59,7 @@ app.get('/', function (req, res) {
 app.get('/MainPage', function (req, res) {
     //if the user is not logged in redirect them to login page
     if (!req.session.loggedin) { res.redirect('/login'); return; }
+    //Render main.ejs
     res.render('pages/main', {
         currentUser: currentUser
     });
@@ -66,6 +67,7 @@ app.get('/MainPage', function (req, res) {
 
 //About Route
 app.get('/about', function (req, res) {
+    //If user is not logged in send him to aboute.ejs if he is send to about2.ejs
     if (!req.session.loggedin) { res.render('pages/about'); return; }
     res.render('pages/about2', {
         currentUser: currentUser
@@ -74,26 +76,31 @@ app.get('/about', function (req, res) {
 
 //Login Route
 app.get('/login', function (req, res) {
+    //Render login.ejs
     res.render('pages/login');
 });
 
 //Register Route
 app.get('/register', function (req, res) {
+    //Render reg.ejs
     res.render('pages/reg');
 });
 
 //LogOut Route
 app.get('/logout', function (req, res) {
+    //Loggs Out the current user
     req.session.loggedin = false;
     req.session.destroy();
     res.redirect('/');
 });
 
-//Porfile Route
+//Profile Route
 app.get('/profile', function (req, res) {
+    //If not logged in send to log in page
     if (!req.session.loggedin) { res.redirect('/login'); return; }
+    //Gets username from query
     var uname = req.query.username;
-
+    //Finds the user in the database and renders profile page
     db.collection('people').findOne({
         "login.username": uname
     }, function (err, result) {
@@ -123,6 +130,7 @@ app.get('/delete', function (req, res) {
 
 //Get route for the results
 app.get('/results', function (req, res) {
+    //Check if user is logged in
     if (!req.session.loggedin) { res.redirect('/login'); return; }
     db.collection('search').find().toArray(function (err, result) {
         if (err) throw err;
@@ -132,33 +140,40 @@ app.get('/results', function (req, res) {
         });
     });
 });
-
+//Gets addFavorite route and add selected artist to favorite
 app.get('/addFavorite', function (req, res) {
+    //Check if user is logged in
     if (!req.session.loggedin) { res.redirect('/login'); return; }
+    //Artist Details
     var link = req.query.profile;
     var thumb = req.query.image;
-
+    //Add new field to user in people collection
     db.collection('people').update(
         { "login.username": currentUser },
         { $push: { "favorite": { "profile": link, "image": thumb } } }
     )
-    alert("Added to your Favorite!");
-    res.redirect('results');
+    //Redirect to 
+    res.redirect('/results');
 });
 
-
+//Gets userProfile route and renders the page
 app.get('/userProfile', function (req, res) {
+    //Check if the user is logged in
     if (!req.session.loggedin) { res.redirect('/login'); return; }
+    //Artist details
     var uname = req.query.user;
     var icon = req.query.icon;
 
+    //Main Function// Renders the Page
     getProfie();
 
+    //Sends a request for DeviantArt access token, returns a promise
     function oAuth2() {
 
         var accesToken;
+        //Create new promise
         return new Promise(function (resolve, reject) {
-
+            //Request
             request({
                 url: 'https://www.deviantart.com/oauth2/token',
                 method: 'POST',
@@ -176,72 +191,74 @@ app.get('/userProfile', function (req, res) {
         });
     }
 
+    //Function waits for request to resolve and returns access token
     async function getAccessToken() {
         var accessToken = await oAuth2();
         return accessToken;
     }
-
+    //Function waits for access token then makes request for artist details
     async function connectToDeviantArt() {
+
         var accessToken = await getAccessToken();
 
-        return new Promise(function(resolve,reject) {
+        return new Promise(function (resolve, reject) {
 
-            request('https://www.deviantart.com/api/v1/oauth2/user/profile/'+uname+'?ext_collections=false&ext_galleries=true&access_token=' + accessToken, function(err,res,body) {
+            request('https://www.deviantart.com/api/v1/oauth2/user/profile/' + uname + '?ext_collections=false&ext_galleries=true&access_token=' + accessToken, function (err, res, body) {
                 if (err) reject(err);
                 var json = JSON.parse(body);
                 resolve(json);
             });
         });
     }
-
+    //Function waits for request to resolve and returns artist details
     async function getData() {
         var data = await connectToDeviantArt();
         return data;
     }
-
+    //Function gets Artists Folder ID
     async function getFolderId() {
         var data = await getData();
         var folderId = data.galleries[0].folderid;
         return folderId;
     }
-
+    //Function gets link to artist's profile
     async function getUrl() {
         var data = await getData();
         var url = data.profile_url;
         return url;
     }
-
+    //Function gets artist's country
     async function getCountry() {
         var data = await getData();
         var country = data.country;
         return country;
     }
-
+    //Function gets artists tagline
     async function getTagline() {
         var data = await getData();
         var tagline = data.tagline;
         return tagline;
     }
-
+    //Function makes a request for artists gallery
     async function connectToGallery() {
         var folderId = await getFolderId();
         var accessToken = await getAccessToken();
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
 
-            request('https://www.deviantart.com/api/v1/oauth2/gallery/'+folderId+'?username='+uname+'&mode=popular&mature_content=true&access_token='+accessToken, function(err,res,body) {
-                if(err) reject(err);
+            request('https://www.deviantart.com/api/v1/oauth2/gallery/' + folderId + '?username=' + uname + '&mode=popular&mature_content=true&access_token=' + accessToken, function (err, res, body) {
+                if (err) reject(err);
                 var json = JSON.parse(body);
                 resolve(json);
             });
         });
     }
-
-    async function getGallery(){
+    //Function returns artists gallery
+    async function getGallery() {
         var data = await connectToGallery();
         return data;
     }
-
+    //Function gets array of images from artist's gallery
     async function getImages() {
         var gallery = await getGallery();
         var featured = [];
@@ -250,20 +267,20 @@ app.get('/userProfile', function (req, res) {
         }
         return featured;
     }
-    
-    async function getProfie(){
+    //Main function, waits for all the promises to resolve and renders the artist profile page
+    async function getProfie() {
         var tagline = await getTagline();
         var country = await getCountry();
         var profile = await getUrl();
         var featured = await getImages();
         res.render('pages/userProfile', {
-            username : uname,
-            icon : icon,
-            tagline : tagline,
-            country : country,
-            link : profile,
-            featured : featured,
-            currentUser : currentUser
+            username: uname,
+            icon: icon,
+            tagline: tagline,
+            country: country,
+            link: profile,
+            featured: featured,
+            currentUser: currentUser
         });
     }
 })
@@ -271,10 +288,14 @@ app.get('/userProfile', function (req, res) {
 
 
 //---------------Post Routes Section----------------------------
+//results post route, does all the request handling
 app.post('/results', function (req, res) {
+    //Term to be searched
     var searchItem = req.body.searchBar + " commission";
+    //Main function that redirects to results page
     sendToPage();
 
+    //Sends a request for DeviantArt access token, returns a promise
     function oAuth2() {
 
         var accessToken;
@@ -297,12 +318,13 @@ app.post('/results', function (req, res) {
             });
         });
     }
-
+    //Returns access token from the response
     async function getAccessToken() {
         var accessToken = await oAuth2();
         return accessToken;
     }
 
+    //Makes a request for entered search term
     async function connectToDeviantArt() {
         var accessToken = await getAccessToken();
 
@@ -316,11 +338,13 @@ app.post('/results', function (req, res) {
         });
     }
 
+    //Gets data from the response
     async function getData() {
         var data = await connectToDeviantArt();
         return data;
     }
 
+    //Erasing 'search' collection for new data to be stored
     function EraseDatabase() {
         db.collection('search').drop(function (err, delOK) {
             if (err) {
@@ -329,7 +353,7 @@ app.post('/results', function (req, res) {
 
         });
     }
-
+    //Adds the data from response to a 'search' collection
     async function addToCollection() {
         await EraseDatabase();
         var data = await getData();
@@ -347,21 +371,21 @@ app.post('/results', function (req, res) {
         };
     }
 
+    //Waits for a promise to be resolved and redirects to results page
     async function sendToPage() {
         await addToCollection();
         res.redirect('/results');
     }
-
-
 });
 
 
 //Gets the data from the login screen
 app.post('/dologin', function (req, res) {
     console.log(JSON.stringify(req.body))
+    //Gets user credentials
     var uname = req.body.username;
     var pword = req.body.password;
-
+    //If user is in the database check if passwords match and redirect to main page 
     db.collection('people').findOne({ "login.username": uname }, function (err, result) {
         if (err) throw err;
 
@@ -398,3 +422,4 @@ app.post('/register', function (req, res) {
 
 });
 
+//-------------------------------------------------------------Server.js END------------------------------------------------------------

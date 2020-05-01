@@ -1,11 +1,15 @@
 <!-- Main Page for the logged in user -->
-
+<!-- Created by Exposure Team
+---- Version 1/05/2020--->
 <!DOCTYPE html>
 <html>
+<!--Head-->
 
 <head>
+    <!--Import Head Template-->
     <%- include('../partials/head') %>
 </head>
+<!--Body-->
 
 <body>
     <!-- Header -->
@@ -70,8 +74,8 @@
 
                     <div class="carousel-caption justify-content-center align-items-center">
                         <div>
-                            <h2>Contact them</h2>
-                            <p>Get in touch to offer them your work</p>
+                            <h2>Favorite</h2>
+                            <p>Add them to your Favorites</p>
                         </div>
                     </div>
                 </a>
@@ -90,27 +94,20 @@
     </div>
     <!-- /.carousel -->
 
-    <!---Search Button-->
+    <!---Search-->
     <div class="container">
         <div class="container h-100">
 
             <form action="/results" method="POST" id="search">
                 <input id="searchInput" name="searchBar">
-                    <i class="fa fa-search" id="fa" ></i>
+                <i class="fa fa-search" id="fa"></i>
             </form>
         </div>
     </div>
 
-    <!--Search Button End-->
-
-    <!-- Results -->
-    <!-- <div id="resultsOverview"></div>
-    <div id="loadBox"></div>
-    <div id="searchResultsBox"></div> -->
-
-
-    <!-- This is where the search results from API should Appear  -->
+    <!--Search End-->
 
 </body>
 
 </html>
+<!---------------------------------------------------------Main Page End---------------------------------------------------->

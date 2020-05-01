@@ -1,15 +1,20 @@
 <!-- Registration Page for the new user -->
-
+<!-- Created by Exposure Team
+---- Version 1/05/2020--->
 <!DOCTYPE html>
 <html lang="en">
+<!--Head-->
 
 <head>
+    <!--Import Head EJS Template-->
     <%-include('../partials/head') %>
 </head>
+<!--Body-->
 
 <body>
     <!--Navigation Menu on top-->
     <header>
+        <!--Import Header EJS Template-->
         <%-include('../partials/header') %>
     </header>
     <!--Core-->
@@ -19,7 +24,7 @@
         <!--Registration Form-->
     <div class=" container" id="loginContainer">
         <div class="d-flex justify-content-center h-100">
-            <div class="card" id="card" style = "height: auto;">
+            <div class="card" id="card" style="height: auto;">
                 <div class="card-header" id="card-header">
                     <h4 class="card-title mt-3 text-center" style="color: #ededed;">Create Account</h4>
                     <p class="text-center" style="color: #ededed">Get started with your free account</p>
@@ -67,8 +72,8 @@
                             <input name="password2" class="form-control" placeholder="Repeat password" type="password">
                         </div> <!-- form-group// -->
                         <div class="form-group">
-                            <input type="submit" value="Create an Account" class="btn float-right login_btn" id="loginButton"
-                                style="background-color: #f4d74b;">
+                            <input type="submit" value="Create an Account" class="btn float-right login_btn"
+                                id="loginButton" style="background-color: #f4d74b;">
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center links">
@@ -86,3 +91,4 @@
 </body>
 
 </html>
+<!---------------------------------------------------Registration Page End----------------------------------------------->
